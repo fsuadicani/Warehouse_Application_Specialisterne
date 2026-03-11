@@ -25,14 +25,19 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  padding: 0;
+  flex-direction: column
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 2.2em;
+  line-height: 1.5;
+  margin: 0;
+  text-align: center;
+  width: 50%;
+  margin: auto;
 }
 
 button {
@@ -44,10 +49,11 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+button:focus,
+button:focus-visible {
+  outline: 4px solid #646cff;
+  outline-offset: 2px;
 }
-button:hover {
-  border-color: #646cff;
 }
 button:focus,
 button:focus-visible {
@@ -64,5 +70,57 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+    margin: 5px;
+    margin-left: 90%;
+  }
+  div.App
+  {
+    background-color: orange;
+    width: 100%;
+    height: 12%;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 1fr, 2fr, 3fr;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .form-actions
+  {
+    background-color: orange;
+    width: 50%;
+    height: 12%;
+    padding: 5px;
+    display: inline-block;
+  }
+
+  .login-form
+  {
+    background-color: orange;
+    width: 50%;
+    height: 12%;
+    padding: 5px;
+    display: inline-block;
+  }
+
+  #username, #password
+  {
+    background-color: #eacb02;
+    color: #fff;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-left: 3%;
+  }
+
+  #username {
+    margin-top: 2%;
+    margin-left: 50%;
+  }
+
+  #username:focus, #password:focus
+  {
+    outline: 1px solid #646cff;
+    outline-offset: 2px;
   }
 }
