@@ -22,7 +22,7 @@
     height: 100%;
 }
 
-ul {
+.home-nav ul {
   flex: 1 0 21%;
   list-style-type: none;
   margin: 0;
@@ -31,15 +31,15 @@ ul {
   width: 100%;
 }
 
-ul li {
+.home-nav ul li {
   float: left;
 }
 
-ul li.logout-item {
+.home-nav ul li.logout-item {
   float: right;
 }
 
-ul li a {
+.home-nav ul li a {
   display: block;
   color: rgb(0, 0, 0);
   text-align: center;
@@ -47,14 +47,13 @@ ul li a {
   text-decoration: none;
 }
 
-ul li a:hover {
+.home-nav ul li a:hover {
   background-color: #d7a35f;
 }
-
 .logout-button {
-  background-color: #f9f9f9;
+  background-color: #f40000;
   margin: 5px;
   width: auto;
-  border: 1px solid #c9c9c9;
+  border: 1px solid #000000;
   padding: 10px 14px;
 }

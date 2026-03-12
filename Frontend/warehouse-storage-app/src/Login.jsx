@@ -11,8 +11,7 @@ function Login({ onLogin }) {
     e.preventDefault();
 
     const normalizedUsername = username.trim().toLowerCase();
-    const normalizedPassword = password.trim();
-
+    const normalizedPassword = password;
     // TODO: Remove DEV-only login fallback before release and rely only on server-side authentication.
     if (DEV_ONLY_LOGIN_ENABLED) {
       const devUsername = (import.meta.env.VITE_DEV_LOGIN_USERNAME ?? '').trim().toLowerCase();
