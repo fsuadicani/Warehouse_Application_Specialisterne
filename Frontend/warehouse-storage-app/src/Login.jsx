@@ -3,16 +3,77 @@ import { useState } from 'react';
 function Login({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [remember, setRemember] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const DEV_ONLY_LOGIN_ENABLED = import.meta.env.DEV && import.meta.env.VITE_DEV_LOGIN_ENABLED === 'true';
+
+  const createLabeledError = (name, message) => {
+    const error = new Error(message);
+    error.name = name;
+    return error;
+  };
+
+  const getResponseErrorDetails = async (response) => {
+    const contentType = response.headers.get('content-type') ?? '';
+
+    try {
+      if (contentType.includes('application/json')) {
+        const body = await response.json();
+        if (typeof body?.message === 'string' && body.message.trim()) {
+          return body.message.trim();
+        }
+        if (typeof body?.error === 'string' && body.error.trim()) {
+          return body.error.trim();
+        }
+      }
+
+      const text = await response.text();
+      if (text.trim()) {
+        return text.trim();
+      }
+    } catch {
+      return '';
+    }
+
+    return '';
+  };
+
+  const createResponseError = async (response) => {
+    const details = await getResponseErrorDetails(response);
+    const statusText = response.statusText?.trim() || 'Request failed';
+
+    if (response.status === 401 || response.status === 403) {
+      return createLabeledError('AuthError', details || 'Invalid username or password');
+    }
+
+    if (response.status >= 500) {
+      return createLabeledError(
+        'ServerError',
+        details || `Server error (${response.status} ${statusText}). Please try again later.`,
+      );
+    }
+
+    return createLabeledError(
+      'RequestError',
+      details || `Login failed (${response.status} ${statusText}).`,
+    );
+  };
+
+  const persistSession = (session) => {
+    const storage = remember ? localStorage : sessionStorage;
+    const alternateStorage = remember ? sessionStorage : localStorage;
+
+    alternateStorage.removeItem('warehouseAuth');
+    storage.setItem('warehouseAuth', JSON.stringify(session));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const normalizedUsername = username.trim();
     const normalizedPassword = password.trim();
-    // TODO: Remove DEV-only login fallback before release and rely only on server-side authentication.
+    // TODO: Remove DEV-only login fallback before release
     if (DEV_ONLY_LOGIN_ENABLED) {
       const devUsername = (import.meta.env.VITE_DEV_LOGIN_USERNAME ?? '').trim();
       const devPassword = (import.meta.env.VITE_DEV_LOGIN_PASSWORD ?? '').trim();
@@ -26,7 +87,7 @@ function Login({ onLogin }) {
           loggedInAt: new Date().toISOString(),
         };
 
-        localStorage.setItem('warehouseAuth', JSON.stringify(session));
+        persistSession(session);
 
         if (typeof onLogin === 'function') {
           onLogin(session);
@@ -54,29 +115,47 @@ function Login({ onLogin }) {
       });
 
       if (!response.ok) {
-        throw new Error('Invalid username or password');
+        throw await createResponseError(response);
       }
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        throw createLabeledError('ParseError', 'Received an invalid response from the server.');
+      }
+
+      if (!data.token) {
+        throw new Error('Authentication failed: no token received');
+      }
       const session = {
         username: data.username ?? normalizedUsername,
-        token: data.token ?? '',
+        token: data.token,
         loggedInAt: new Date().toISOString(),
-      };
-
-      setErrorMessage('');
+      };      setErrorMessage('');
       setIsAuthenticated(true);
 
-      localStorage.setItem('warehouseAuth', JSON.stringify(session));
+      persistSession(session);
 
       if (typeof onLogin === 'function') {
         onLogin(session);
       }
 
       window.location.hash = '#/home';
-    } catch {
+    } catch (error) {
       setIsAuthenticated(false);
-      setErrorMessage('Invalid username or password');
+
+      if (error instanceof TypeError) {
+        setErrorMessage('Network error. Check your connection and try again.');
+        return;
+      }
+
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+        return;
+      }
+
+      setErrorMessage('Login failed. Please try again.');
     }
   };
 
@@ -97,7 +176,13 @@ function Login({ onLogin }) {
 
           <div className="form-meta">
             <label className="remember">
-              <input type="checkbox" id="remember" name="remember" /> Remember me
+              <input
+                type="checkbox"
+                id="remember"
+                name="remember"
+                checked={remember}
+                onChange={(e) => setRemember(e.target.checked)}
+              /> Remember me
             </label>
             <a href="#">Forgot password?</a>
           </div>

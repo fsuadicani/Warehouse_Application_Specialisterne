@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 
 const Graphs = () => {
   const containerRef = useRef(null);
+  const chartRef = useRef(null);
 
   useEffect(() => {
     // Wait a tick to ensure DOM is ready and FusionCharts is available
@@ -61,13 +62,26 @@ const Graphs = () => {
       };
 
       if (window.FusionCharts) {
-        new window.FusionCharts(barChartConfigs).render();
+        if (chartRef.current) {
+          chartRef.current.dispose();
+          chartRef.current = null;
+        }
+
+        chartRef.current = new window.FusionCharts(barChartConfigs);
+        chartRef.current.render();
       } else {
         console.warn('FusionCharts not available');
       }
     }, 100); // 100ms delay to ensure scripts load
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+
+      if (chartRef.current) {
+        chartRef.current.dispose();
+        chartRef.current = null;
+      }
+    };
   }, []);
 
   return <div ref={containerRef} id="chart-container" style={{ width: '100%', height: '400px', minHeight: '400px' }}></div>;
