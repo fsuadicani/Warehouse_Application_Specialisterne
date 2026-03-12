@@ -60,7 +60,7 @@ div.tablecontainer {
 table {
     border-collapse: collapse;
     width: 90%;
-    margin-left: 5%;
+    margin-left: 0%;
 }
 
 table, th, td {
@@ -71,6 +71,18 @@ table, th, td {
 
 th {
     background-color: #33b5e5;
+}
+
+.row-actions {
+    white-space: nowrap;
+}
+
+.row-actions button {
+    margin-right: 8px;
+}
+
+.row-actions button:last-child {
+    margin-right: 0;
 }
 
 .table-error {
@@ -86,4 +98,12 @@ th {
 @media (min-width: 768px) {
     .menu {grid-area: 1 / span 1;}
     .content {grid-area: 2 / span 1;}
+}
+
+.citySelector {
+    padding : 10px;
+    background-color: #8f1212;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin: 20px;
 }
