@@ -16,6 +16,17 @@ warehouse-storage-api/
 │
 └── WarehouseStorage.Services/         # Business logic, interfaces, mapping
 
+# How to setup Database
+Right now it only works with postgres (TODO Make it more agnostic)
+In Infrastructure:
+Run: dotnet ef migrations add InitialCreate
+Run: dotnet ef database update
+
+To remove database:
+Run: dotnet ef database drop
+
+If making model changes, consider deleting migrations and recreating unless we want migration history
+
 # References
 1. [UI_design](https://www.canva.com/)
 2. [JSON_WEB_TOKEN_CSHARP](https://saigontechnology.com/blog/json-web-token-using-c/)

@@ -45,6 +45,13 @@ dotnet add WarehouseStorage.Tests reference WarehouseStorage.Api
 dotnet add WarehouseStorage.Infrastructure package Microsoft.EntityFrameworkCore
 dotnet add WarehouseStorage.Infrastructure package Microsoft.EntityFrameworkCore.SqlServer
 dotnet add WarehouseStorage.Infrastructure package Microsoft.EntityFrameworkCore.Design
+dotnet add WarehouseStorage.Infrastructure package Npgsql.EntityFrameworkCore.PostgreSQL
+dotnet add WarehouseStorage.Infrastructure package DotNetEnv
+
+# Add Configuration to Infrastructure
+dotnet add WarehouseStorage.Infrastructure package Microsoft.Extensions.Configuration
+dotnet add WarehouseStorage.Infrastructure package Microsoft.Extensions.Configuration.Json
+dotnet add WarehouseStorage.Infrastructure package Microsoft.Extensions.Configuration.FileExtensions
 
 # Authentication & Authorization (JWT)
 dotnet add WarehouseStorage.Api package Microsoft.AspNetCore.Authentication.JwtBearer

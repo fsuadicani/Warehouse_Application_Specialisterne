@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using WarehouseStorage.Domain.DomainPrimitives;
+using WarehouseStorage.Domain.Models;
 
 public class WarehouseDbContext : DbContext
 {
@@ -7,6 +9,8 @@ public class WarehouseDbContext : DbContext
     {
     }
 
-    //Example
-    //public DbSet<Item> Items { get; set; }
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.ApplyConfigurationsFromAssembly(typeof(WarehouseDbContext).Assembly);
+    }
 }
