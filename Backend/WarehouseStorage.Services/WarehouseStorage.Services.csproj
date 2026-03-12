@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\WarehouseStorage.Domain\WarehouseStorage.Domain.csproj" />
+    <ProjectReference Include="..\WarehouseStorage.Infrastructure\WarehouseStorage.Infrastructure.csproj" />
+    <ProjectReference Include="..\WarehouseStorage.DTOs\WarehouseStorage.DTOs.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="16.1.0" />
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="WarehouseStorage.Api/WarehouseStorage.Api.csproj" />
+  <Project Path="WarehouseStorage.Domain/WarehouseStorage.Domain.csproj" />
+  <Project Path="WarehouseStorage.DTOs/WarehouseStorage.DTOs.csproj" />
+  <Project Path="WarehouseStorage.Infrastructure/WarehouseStorage.Infrastructure.csproj" />
+  <Project Path="WarehouseStorage.Services/WarehouseStorage.Services.csproj" />
+  <Project Path="WarehouseStorage.Tests/WarehouseStorage.Tests.csproj" />
+</Solution>

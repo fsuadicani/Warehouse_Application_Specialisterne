@@ -1,0 +1,12 @@
+C:\Users\SPAC-O-5\Visual Studio Projects\Lageropgave_Specialisterne\Backend\WarehouseStorage.Domain\bin\Debug\net10.0\WarehouseStorage.Domain.deps.json
+C:\Users\SPAC-O-5\Visual Studio Projects\Lageropgave_Specialisterne\Backend\WarehouseStorage.Domain\bin\Debug\net10.0\WarehouseStorage.Domain.dll
+C:\Users\SPAC-O-5\Visual Studio Projects\Lageropgave_Specialisterne\Backend\WarehouseStorage.Domain\bin\Debug\net10.0\WarehouseStorage.Domain.pdb
+C:\Users\SPAC-O-5\Visual Studio Projects\Lageropgave_Specialisterne\Backend\WarehouseStorage.Domain\obj\Debug\net10.0\WarehouseStorage.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SPAC-O-5\Visual Studio Projects\Lageropgave_Specialisterne\Backend\WarehouseStorage.Domain\obj\Debug\net10.0\WarehouseStorage.Domain.AssemblyInfoInputs.cache
+C:\Users\SPAC-O-5\Visual Studio Projects\Lageropgave_Specialisterne\Backend\WarehouseStorage.Domain\obj\Debug\net10.0\WarehouseStorage.Domain.AssemblyInfo.cs
+C:\Users\SPAC-O-5\Visual Studio Projects\Lageropgave_Specialisterne\Backend\WarehouseStorage.Domain\obj\Debug\net10.0\WarehouseStorage.Domain.csproj.CoreCompileInputs.cache
+C:\Users\SPAC-O-5\Visual Studio Projects\Lageropgave_Specialisterne\Backend\WarehouseStorage.Domain\obj\Debug\net10.0\WarehouseStorage.Domain.sourcelink.json
+C:\Users\SPAC-O-5\Visual Studio Projects\Lageropgave_Specialisterne\Backend\WarehouseStorage.Domain\obj\Debug\net10.0\WarehouseStorage.Domain.dll
+C:\Users\SPAC-O-5\Visual Studio Projects\Lageropgave_Specialisterne\Backend\WarehouseStorage.Domain\obj\Debug\net10.0\refint\WarehouseStorage.Domain.dll
+C:\Users\SPAC-O-5\Visual Studio Projects\Lageropgave_Specialisterne\Backend\WarehouseStorage.Domain\obj\Debug\net10.0\WarehouseStorage.Domain.pdb
+C:\Users\SPAC-O-5\Visual Studio Projects\Lageropgave_Specialisterne\Backend\WarehouseStorage.Domain\obj\Debug\net10.0\ref\WarehouseStorage.Domain.dll
