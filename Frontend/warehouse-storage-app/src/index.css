@@ -125,10 +125,41 @@ button:focus-visible {
   .login-form
   {
     background-color: orange;
-    width: 50%;
-    height: 12%;
+    width: min(920px, 95%);
     padding: 5px;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: auto;
+    margin-right: 0;
+    align-items: flex-end;
+  }
+
+  .login-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+
+  .field-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .field-column-password {
+    align-items: flex-start;
+  }
+
+  .form-meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 
   #username, #password
@@ -138,12 +169,22 @@ button:focus-visible {
     padding: 4px 6px;
     border-radius: 4px;
     font-weight: bold;
-    margin-left: 3%;
+    margin-left: 0;
+    min-width: 220px;
   }
 
   #username {
-    margin-top: 2%;
-    margin-left: 70%;
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .login-submit {
+    width: auto;
+    margin: 0;
+    margin-left: 0;
+    padding: 0.45em 0.9em;
+    line-height: 1;
+    align-self: flex-end;
   }
 
   #username:focus, #password:focus
@@ -159,5 +200,35 @@ button:focus-visible {
     display: block;
     padding: 5px;
     margin: auto;
+  }
+
+  .login-error {
+    margin: 0;
+    color: #8b0000;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  @media (max-width: 900px) {
+    .login-grid {
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .field-column,
+    .field-column-password {
+      width: 100%;
+      align-items: flex-end;
+    }
+
+    #username,
+    #password {
+      min-width: 180px;
+      width: min(260px, 100%);
+    }
+
+    .form-meta {
+      justify-content: flex-end;
+    }
   }
 }
