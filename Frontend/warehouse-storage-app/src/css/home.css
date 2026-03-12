@@ -1,0 +1,13 @@
+.home {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 5vh;
+  background-color: orange;
+}
+
+.home h1 {
+  font-size: 3rem;
+  color: rgb(0, 0, 0);
+  margin-bottom: 1rem;
+  width: 100%;
+}
