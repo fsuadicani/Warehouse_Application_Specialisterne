@@ -184,7 +184,6 @@ button:focus-visible {
     margin-left: 0;
     padding: 0.45em 0.9em;
     line-height: 1;
-    align-self: flex-end;
   }
 
   #username:focus, #password:focus
@@ -218,7 +217,7 @@ button:focus-visible {
     .field-column,
     .field-column-password {
       width: 100%;
-      align-items: flex-end;
+      align-items: flex-start;
     }
 
     #username,
