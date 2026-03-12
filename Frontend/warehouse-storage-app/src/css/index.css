@@ -35,7 +35,6 @@ body, .container {
 h1 {
   font-size: 2.2em;
   line-height: 1.5;
-  margin: 0;
   text-align: center;
   width: 50%;
   margin: auto;
@@ -50,17 +49,13 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
+}
+
 button:focus,
 button:focus-visible {
   outline: 4px solid #646cff;
   outline-offset: 2px;
 }
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

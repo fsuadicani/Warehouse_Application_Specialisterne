@@ -1,22 +1,85 @@
 import { useState } from 'react';
 
-function Login() {
+function Login({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const DEV_ONLY_LOGIN_ENABLED = import.meta.env.DEV && import.meta.env.VITE_DEV_LOGIN_ENABLED === 'true';
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const normalizedUsername = username.trim().toLowerCase();
     const normalizedPassword = password.trim();
 
-    if (normalizedUsername === 'admin' && normalizedPassword === '1234') {
-      setErrorMessage('');
+    // TODO: Remove DEV-only login fallback before release and rely only on server-side authentication.
+    if (DEV_ONLY_LOGIN_ENABLED) {
+      const devUsername = (import.meta.env.VITE_DEV_LOGIN_USERNAME ?? '').trim().toLowerCase();
+      const devPassword = (import.meta.env.VITE_DEV_LOGIN_PASSWORD ?? '').trim();
+
+      if (normalizedUsername === devUsername && normalizedPassword === devPassword && devUsername && devPassword) {
+        setErrorMessage('');
+        setIsAuthenticated(true);
+
+        const session = {
+          username: normalizedUsername,
+          token: 'dev-auth-token',
+          loggedInAt: new Date().toISOString(),
+        };
+
+        localStorage.setItem('warehouseAuth', JSON.stringify(session));
+
+        if (typeof onLogin === 'function') {
+          onLogin(session);
+        }
+
+        window.location.hash = '#/home';
+        return;
+      }
+
+      setIsAuthenticated(false);
+      setErrorMessage('Invalid username or password');
       return;
     }
 
-    setErrorMessage('Invalid username or password');
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: normalizedUsername,
+          password: normalizedPassword,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Invalid username or password');
+      }
+
+      const data = await response.json();
+      const session = {
+        username: data.username ?? normalizedUsername,
+        token: data.token ?? '',
+        loggedInAt: new Date().toISOString(),
+      };
+
+      setErrorMessage('');
+      setIsAuthenticated(true);
+
+      localStorage.setItem('warehouseAuth', JSON.stringify(session));
+
+      if (typeof onLogin === 'function') {
+        onLogin(session);
+      }
+
+      window.location.hash = '#/home';
+    } catch {
+      setIsAuthenticated(false);
+      setErrorMessage('Invalid username or password');
+    }
   };
 
 
@@ -57,6 +120,7 @@ function Login() {
         </div>
       </div>
 
+      {isAuthenticated && <p className="login-success">Login successful.</p>}
       {errorMessage && <p className="login-error">{errorMessage}</p>}
     </form>
   );
