@@ -21,6 +21,7 @@ function Login() {
 
 
   return (
+      <browserRouter>
     <form className="login-form" onSubmit={handleSubmit}>
       <div className="login-grid">
         <div className="field-column">
@@ -59,6 +60,7 @@ function Login() {
 
       {errorMessage && <p className="login-error">{errorMessage}</p>}
     </form>
+      </browserRouter>
   );
 }
 
