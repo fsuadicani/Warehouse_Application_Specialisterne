@@ -1,0 +1,56 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0" version="29.6.1">
+  <diagram name="Page-1" id="N_0mmheFBSxwRstwh9-r">
+    <mxGraphModel dx="2058" dy="1106" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ik6-Q7BlRY4tJuBNs7Vm-1" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;Confirm Status of Transit Changed&lt;/span&gt;&lt;/h1&gt;&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-weight: normal;&quot;&gt;&lt;font style=&quot;font-size: 12px; line-height: 100%;&quot;&gt;An Employee can change the status of an active transit to whatever status it should be changed to by providing new status. Relevant actors should then be contacted based on changed status.&lt;/font&gt;&lt;/span&gt;&lt;/h1&gt;" vertex="1">
+          <mxGeometry height="430" width="180" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Wa0bvl-4Xs7Dy7i-XmnO-1" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value=":TransitController" vertex="1">
+          <mxGeometry height="440" width="140" x="340" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Wa0bvl-4Xs7Dy7i-XmnO-2" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value=":TransitService" vertex="1">
+          <mxGeometry height="440" width="100" x="580" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Wa0bvl-4Xs7Dy7i-XmnO-3" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value=":Transit" vertex="1">
+          <mxGeometry height="100" width="100" x="970" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="Wa0bvl-4Xs7Dy7i-XmnO-4" edge="1" parent="1" style="html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;curved=0;rounded=0;" target="Wa0bvl-4Xs7Dy7i-XmnO-1" value="ChangeStatus(Transit, New status)">
+          <mxGeometry relative="1" width="60" as="geometry">
+            <mxPoint x="220" y="140" as="sourcePoint" />
+            <mxPoint x="390" y="140" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wa0bvl-4Xs7Dy7i-XmnO-5" edge="1" parent="1" style="html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;curved=0;rounded=0;" target="Wa0bvl-4Xs7Dy7i-XmnO-2" value="ChangeStatus(Transit, New status)">
+          <mxGeometry relative="1" width="60" as="geometry">
+            <mxPoint x="414" y="220" as="sourcePoint" />
+            <mxPoint x="604" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wa0bvl-4Xs7Dy7i-XmnO-6" parent="1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" value=":TransitRepository" vertex="1">
+          <mxGeometry height="440" width="100" x="790" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Wa0bvl-4Xs7Dy7i-XmnO-7" edge="1" parent="1" style="html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;curved=0;rounded=0;" target="Wa0bvl-4Xs7Dy7i-XmnO-6" value="GetTransit(TransitId)">
+          <mxGeometry relative="1" width="60" as="geometry">
+            <mxPoint x="630" y="280" as="sourcePoint" />
+            <mxPoint x="800" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wa0bvl-4Xs7Dy7i-XmnO-8" edge="1" parent="1" style="html=1;verticalAlign=bottom;startArrow=oval;startFill=1;endArrow=block;startSize=8;curved=0;rounded=0;" value="create">
+          <mxGeometry relative="1" width="60" as="geometry">
+            <mxPoint x="840" y="360" as="sourcePoint" />
+            <mxPoint x="960" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Wa0bvl-4Xs7Dy7i-XmnO-10" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" target="Wa0bvl-4Xs7Dy7i-XmnO-2" value="Transit">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+            <mxPoint x="840" y="409.5" as="sourcePoint" />
+            <mxPoint x="660" y="409.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
