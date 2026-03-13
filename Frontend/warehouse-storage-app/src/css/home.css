@@ -1,0 +1,61 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  background-color: orange;
+}
+
+.home h1 {
+  font-size: 3rem;
+  color: rgb(0, 0, 0);
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.home-nav {
+  width: 100%;
+  background-color: orange;
+  position: relative;
+  z-index: 10;
+}
+.home-container {
+    width: 100%;
+    background-color: yellow;
+    flex: 1;
+    overflow: auto;
+}
+
+.home-nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+}
+.home-nav ul li {
+  float: left;
+}
+
+.home-nav ul li.logout-item {
+  float: right;
+}
+
+.home-nav ul li a {
+  display: block;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.home-nav ul li a:hover {
+  background-color: #d7a35f;
+}
+.logout-button {
+  background-color: #f40000;
+  margin: 5px;
+  width: auto;
+  border: 1px solid #000000;
+  padding: 10px 14px;
+}
