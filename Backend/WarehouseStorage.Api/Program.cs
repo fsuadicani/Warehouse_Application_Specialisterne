@@ -1,9 +1,15 @@
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using WarehouseStorage.Infrastructure;
+using WarehouseStorage.Domain.Enums;
+using WarehouseStorage.Domain.Models;
+using WarehouseStorage.Services;
+using WarehouseStorage.Services.Security;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration.AddUserSecrets<Program>();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -28,12 +34,34 @@ builder.Services.AddAuthentication("Bearer")
         };
     });
 
+//Build the different policies for access to Endpoints
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("RequireAdministratorRole",
+         policy => policy.RequireRole(Role.ADMIN.ToString()))
+    .AddPolicy("RequireEmployeeRole",
+        policy => policy.RequireRole(Role.EMPLOYEE.ToString()));
+
+builder.Services.AddScoped<AuthService>();
+
 //Setup Database
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddDbContext<WarehouseDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//Add Identity to have EF manage users
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<WarehouseDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddTransient<RoleSeeder>();
 
 var app = builder.Build();
+
+//Ensure roles exist in database. Create if needed
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleSeeder = scope.ServiceProvider.GetRequiredService<RoleSeeder>();
+    await roleSeeder.SeedRolesAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -43,5 +71,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapControllers();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

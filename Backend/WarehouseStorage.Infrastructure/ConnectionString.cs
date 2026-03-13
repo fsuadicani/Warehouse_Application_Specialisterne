@@ -2,21 +2,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DotNetEnv;
+using Microsoft.Extensions.Configuration;
 
 namespace WarehouseStorage.Infrastructure
 {
     public static class ConnectionString
     {
+        private static IConfiguration? _configuration;
+
+        public static void Initialize(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public static string GetString()
         {
-            Env.Load();
+            if (_configuration == null)
+                throw new InvalidOperationException("Configuration not initialized. Call Initialize first.");
             
-            var host = Environment.GetEnvironmentVariable("DB_HOST");
-            var username = Environment.GetEnvironmentVariable("DB_USERNAME");
-            var password = Environment.GetEnvironmentVariable("DB_PASSWORD");
-            var port = Environment.GetEnvironmentVariable("DB_PORT");
-            var database = Environment.GetEnvironmentVariable("DB_NAME");
+            var host = _configuration["DB_HOST"];
+            var username = _configuration["DB_USERNAME"];
+            var password = _configuration["DB_PASSWORD"];
+            var port = _configuration["DB_PORT"];
+            var database = _configuration["DB_NAME"];
 
             if (string.IsNullOrEmpty(host) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 throw new Exception("Database environment variables are not set.");

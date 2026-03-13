@@ -45,8 +45,11 @@ dotnet add WarehouseStorage.Tests reference WarehouseStorage.Api
 dotnet add WarehouseStorage.Infrastructure package Microsoft.EntityFrameworkCore
 dotnet add WarehouseStorage.Infrastructure package Microsoft.EntityFrameworkCore.SqlServer
 dotnet add WarehouseStorage.Infrastructure package Microsoft.EntityFrameworkCore.Design
+dotnet add WarehouseStorage.Infrastructure package Microsoft.AspNetCore.Identity.EntityFrameworkCore
 dotnet add WarehouseStorage.Infrastructure package Npgsql.EntityFrameworkCore.PostgreSQL
 dotnet add WarehouseStorage.Infrastructure package DotNetEnv
+dotnet add WarehouseStorage.Api package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+dotnet add WarehouseStorage.Domain package Microsoft.AspNetCore.Identity.EntityFrameworkCore
 
 # Add Configuration to Infrastructure
 dotnet add WarehouseStorage.Infrastructure package Microsoft.Extensions.Configuration
@@ -55,6 +58,8 @@ dotnet add WarehouseStorage.Infrastructure package Microsoft.Extensions.Configur
 
 # Authentication & Authorization (JWT)
 dotnet add WarehouseStorage.Api package Microsoft.AspNetCore.Authentication.JwtBearer
+dotnet add WarehouseStorage.Domain package Microsoft.AspNet.Identity.EntityFramework
+dotnet add WarehouseStorage.Services package Bcrypt.Net-Next
 
 # AutoMapper for mapping Domain <-> DTOs
 dotnet add WarehouseStorage.Services package AutoMapper --version 16.1.0

@@ -18,6 +18,17 @@ warehouse-storage-api/
 
 # How to setup Database
 Right now it only works with postgres (TODO Make it more agnostic)
+
+Make sure you have set following with dotnet user-secrets set "key" "value"
+
+In API
+dotnet user-secrets set "DB_HOST" "Hostname" (Localhost)
+dotnet user-secrets set "DB_USERNAME" "Database user name" (postgres)
+dotnet user-secrets set "DB_PASSWORD" "Database password" (YourPassword)
+dotnet user-secrets set "DB_PORT" "Database port" (5433)
+dotnet user-secrets set "DB_NAME" "Database name" (WareHouseStorage)
+dotnet user-secrets set "Jwt:Key" "Jwt key" (Get one from: https://jwtsecrets.com/#generator)
+
 In Infrastructure:
 Run: dotnet ef migrations add InitialCreate
 Run: dotnet ef database update
