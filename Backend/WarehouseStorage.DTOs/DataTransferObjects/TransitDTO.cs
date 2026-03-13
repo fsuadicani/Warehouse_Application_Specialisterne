@@ -8,12 +8,12 @@ namespace WarehouseStorage.DTOs.DataTransferObjects
     public class TransitDTO
     {
         public Guid? Id { get; set;}
-        public string TransitNumber { get; set;}
-        public string PickUpCode { get; set;}
-        public string GpsLocation { get; set;}
-        public string Distributor { get; set;}
-        public string DeliveryStatus { get; set;}
+        required public string TransitNumber { get; set;}
+        required public string PickUpCode { get; set;}
+        required public string GpsLocation { get; set;}
+        required public string Distributor { get; set;}
+        required public string DeliveryStatus { get; set;}
 
-        public ICollection<StockDTO> Stocks {get; set;}
+        required public ICollection<StockDTO> Stocks {get; set;}
     }
 }

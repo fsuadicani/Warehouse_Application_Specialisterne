@@ -8,7 +8,7 @@ namespace WarehouseStorage.DTOs.DataTransferObjects
     public class MultipleProductDTO
     {
         public Guid? Id { get; set;}
-        public string Name { get; set;}
-        public string Number { get; set;}
+        required public string Name { get; set;}
+        required public string Number { get; set;}
     }
 }

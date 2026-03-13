@@ -8,9 +8,9 @@ namespace WarehouseStorage.DTOs.DataTransferObjects
     public class StockDTO
     {
         public Guid? Id { get; set;}
-        public string InHouseLocation { get; set;}
-        public int Quantity { get; set;}
-        public decimal LocalPrice { get; set;}
-        public string LocalCurrency { get; set;}
+        required public string InHouseLocation { get; set;}
+        required public int Quantity { get; set;}
+        required public decimal LocalPrice { get; set;}
+        required public string LocalCurrency { get; set;}
     }
 }
