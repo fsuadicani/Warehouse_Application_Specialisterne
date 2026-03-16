@@ -34,6 +34,10 @@ public class ProductRepository : IProductRepository
 
     public async Task Update(Product product)
     {
+        if (product.Id == Guid.Empty)
+        {
+            throw new ArgumentException("Product ID cannot be empty for update.");
+        }
         _context.Products.Update(product);
         await _context.SaveChangesAsync();
     }
