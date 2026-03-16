@@ -16,8 +16,11 @@ builder.Configuration.AddUserSecrets<Program>();
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
 
-// Add User Secrets for development environment
-builder.Configuration.AddUserSecrets<Program>();
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets(typeof(ConnectionString).Assembly, optional: true, reloadOnChange: true);
+}
+
 // JWT Token Setup
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer(options =>
