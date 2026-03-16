@@ -10,30 +10,30 @@ public class ProductRepository : IProductRepository
         _context = context;
     }
 
-    public async Task<Product?> GetByIdAsync(Guid id)
+    public async Task<Product?> GetById(Guid id)
     {
         return await _context.Products.FindAsync(id);
     }
 
-    public async Task<Product[]> GetAllAsync()
+    public async Task<Product[]> GetAll()
     {
         return await _context.Products.ToArrayAsync();
     }
 
-    public async Task<Product> AddAsync(Product product)
+    public async Task<Product> Add(Product product)
     {
         _context.Products.Add(product);
         await _context.SaveChangesAsync();
         return product;
     }
 
-    public async Task UpdateAsync(Product product)
+    public async Task Update(Product product)
     {
         _context.Products.Update(product);
         await _context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task Delete(Guid id)
     {
         var product = await _context.Products.FindAsync(id);
         if (product != null)

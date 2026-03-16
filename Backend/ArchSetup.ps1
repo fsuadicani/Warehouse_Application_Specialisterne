@@ -58,7 +58,6 @@ dotnet add WarehouseStorage.Infrastructure package Microsoft.Extensions.Configur
 
 # Authentication & Authorization (JWT)
 dotnet add WarehouseStorage.Api package Microsoft.AspNetCore.Authentication.JwtBearer
-dotnet add WarehouseStorage.Domain package Microsoft.AspNet.Identity.EntityFramework
 dotnet add WarehouseStorage.Services package Bcrypt.Net-Next
 
 # AutoMapper for mapping Domain <-> DTOs
