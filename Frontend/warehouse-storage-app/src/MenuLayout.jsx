@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import './css/warehouse.css';
+import './css/ui.css';
 
 function MenuLayout() {
   return (

@@ -1,4 +1,5 @@
-import '../css/warehouse.css';
+import DataTable from '../components/DataTable.jsx';
+import '../css/ui.css';
 
 function TransitsPage() {
   const transits = [
@@ -30,38 +31,26 @@ function TransitsPage() {
       status: 'Delivered',
     },
   ];
+  const transitColumns = [
+    { key: 'start', label: 'Start' },
+    { key: 'destination', label: 'Destination' },
+    { key: 'transitNumber', label: 'Transit Number' },
+    { key: 'pickUpCode', label: 'Pick Up Code' },
+    { key: 'gpsLocation', label: 'GPS Location' },
+    { key: 'distributor', label: 'Distributor' },
+    { key: 'status', label: 'Status' },
+  ];
 
   return (
     <div className="content">
       <h1>Transits</h1>
 
       <div className="tablecontainer">
-        <table>
-          <thead>
-            <tr>
-              <th>Start</th>
-              <th>Destination</th>
-              <th>Transit Number</th>
-              <th>Pick Up Code</th>
-              <th>GPS Location</th>
-              <th>Distributor</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transits.map((transit) => (
-              <tr key={transit.transitNumber}>
-                <td>{transit.start}</td>
-                <td>{transit.destination}</td>
-                <td>{transit.transitNumber}</td>
-                <td>{transit.pickUpCode}</td>
-                <td>{transit.gpsLocation}</td>
-                <td>{transit.distributor}</td>
-                <td>{transit.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DataTable
+          columns={transitColumns}
+          rows={transits}
+          getRowKey={(transit) => transit.transitNumber}
+        />
       </div>
     </div>
   );

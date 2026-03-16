@@ -1,10 +1,24 @@
-import '../css/warehouse.css';
+import { useState } from 'react';
+import AddTransitModal from '../components/AddTransitModal.jsx';
+import CitySelector from '../components/CitySelector.jsx';
+import DataTable from '../components/DataTable.jsx';
+import EditWarehouseModal from '../components/EditWarehouseModal.jsx';
+import '../css/ui.css';
 
 function WarehousePage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedWarehouse, setSelectedWarehouse] = useState(null);
   const warehouses = [
     { name: 'Skruetrakker', inhouseLocation: 'A1-14', localPrice: '149.00', localCurrency: 'DKK', inStock: 42 },
     { name: 'Hammer', inhouseLocation: 'B2-07', localPrice: '89.50', localCurrency: 'DKK', inStock: 18 },
     { name: 'Boremaskine', inhouseLocation: 'C3-21', localPrice: '799.00', localCurrency: 'DKK', inStock: 7 },
+  ];
+  const warehouseColumns = [
+    { key: 'name', label: 'Name' },
+    { key: 'inhouseLocation', label: 'Inhouse Location' },
+    { key: 'localPrice', label: 'Local Price' },
+    { key: 'localCurrency', label: 'Local Currency' },
+    { key: 'inStock', label: 'In Stock' },
   ];
 
 
@@ -12,46 +26,30 @@ function WarehousePage() {
     <div className="content">
       <h1>Varehuse</h1>
 
-      <form>
-        <a>
-          Vælg en by:
-        </a>
-        <select className="citySelector">
-          <option value="Odense">Odense</option>
-          <option value="København">København</option>
-          <option value="Århus">Århus</option>
-        </select>
-      </form>
+      <CitySelector label="Vælg en by:" className="page-selector-form" />
+
+      <button type="button" onClick={() => setIsModalOpen(true)}>
+        New Transit
+      </button>
 
       <div className="tablecontainer">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Inhouse Location</th>
-              <th>Local Price</th>
-              <th>Local Currency</th>
-              <th>In Stock</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {warehouses.map((warehouse) => (
-              <tr key={`${warehouse.name}-${warehouse.inhouseLocation}`}>
-                <td>{warehouse.name}</td>
-                <td>{warehouse.inhouseLocation}</td>
-                <td>{warehouse.localPrice}</td>
-                <td>{warehouse.localCurrency}</td>
-                <td>{warehouse.inStock}</td>
-                <td className="row-actions">
-                  <button type="button">Edit</button>
-                  <button type="button">Order</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <DataTable
+          columns={warehouseColumns}
+          rows={warehouses}
+          getRowKey={(warehouse) => `${warehouse.name}-${warehouse.inhouseLocation}`}
+          renderActions={(warehouse) => (
+            <button type="button" onClick={() => setSelectedWarehouse(warehouse)}>Edit</button>
+          )}
+        />
       </div>
+
+      {isModalOpen && <AddTransitModal onClose={() => setIsModalOpen(false)} />}
+      {selectedWarehouse && (
+        <EditWarehouseModal
+          onClose={() => setSelectedWarehouse(null)}
+          initialValues={selectedWarehouse}
+        />
+      )}
     </div>
   );
 }

@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Lucida Sans", sans-serif;
+    font-size: 17px;
+}
+
+.content {
+    grid-area: main;
+    padding-top: 10px;
+    margin-left: 5%;
+}
+
+.content > p {
+    margin-bottom: 7px;
+}

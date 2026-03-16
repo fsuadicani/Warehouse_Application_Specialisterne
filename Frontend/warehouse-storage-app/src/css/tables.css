@@ -1,0 +1,84 @@
+.tablecontainer {
+    grid-area: main;
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+    margin-top: 0.5%;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #33b5e5;
+}
+
+.row-actions {
+    white-space: nowrap;
+    text-align: right;
+    width: 1%;
+}
+
+.row-actions button {
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+.row-actions button:first-child {
+    margin-left: 0;
+}
+
+.row-actions-header {
+    text-align: right;
+    width: 1%;
+    white-space: nowrap;
+}
+
+.modal-table {
+    width: 100%;
+    color: #000000;
+}
+
+.modal-table th,
+.modal-table td {
+    color: #000000;
+}
+
+.modal-table-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    padding: 48px 20px 20px;
+}
+
+.modal-table-section {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.modal-table-section h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.modal-table-scroll {
+    overflow: auto;
+    min-height: 0;
+    max-height: 40%;
+}
+
+@media (max-width: 1100px) {
+    .modal-table-grid {
+        grid-template-columns: 1fr;
+    }
+}
