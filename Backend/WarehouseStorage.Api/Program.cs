@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -17,6 +18,14 @@ builder.Configuration.AddUserSecrets<Program>();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
+
+//Setup Database
+builder.Services.AddInfrastructure(builder.Configuration);
+
+//Add Identity to have EF manage users
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<WarehouseDbContext>()
+    .AddDefaultTokenProviders();
 
 // JWT Token Setup
 builder.Services.AddAuthentication(options =>
@@ -39,33 +48,16 @@ builder.Services.AddAuthentication(options =>
             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
         )
     };
-    options.MapInboundClaims = false;
-    options.Events = new JwtBearerEvents
-    {
-        OnAuthenticationFailed = context =>
-        {
-            Debug.WriteLine(context.Exception);
-            return Task.CompletedTask;
-        }
-    };
 });
 
 //Build the different policies for access to Endpoints
 builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("RequireAdministratorRole",
+    .AddPolicy(Policy.RequireAdministratorRole.ToString(),
          policy => policy.RequireRole(Role.ADMIN.ToString()))
-    .AddPolicy("RequireEmployeeRole",
+    .AddPolicy(Policy.RequireEmployeeRole.ToString(),
         policy => policy.RequireRole(Role.EMPLOYEE.ToString()));
 
 builder.Services.AddScoped<AuthService>();
-
-//Setup Database
-builder.Services.AddInfrastructure(builder.Configuration);
-
-//Add Identity to have EF manage users
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<WarehouseDbContext>()
-    .AddDefaultTokenProviders();
 
 builder.Services.AddTransient<RoleSeeder>();
 
@@ -85,6 +77,17 @@ if (!app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.UseHttpsRedirection();
 }
+
+app.Use(async (context, next) =>
+{
+    Console.WriteLine("Request Headers:");
+    foreach (var header in context.Request.Headers)
+    {
+        Console.WriteLine($"{header.Key}: {header.Value}");
+    }
+    await next();
+});
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
