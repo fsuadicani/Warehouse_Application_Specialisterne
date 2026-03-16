@@ -12,7 +12,7 @@ function EditWarehouseModal({ onClose, initialValues = {} }) {
   return (
     <FormModal
       onClose={onClose}
-      title="Edit Warehouse Item"
+      title="Edit Stock Item"
       fields={warehouseFields}
       initialValues={initialValues}
       submitLabel="Save"

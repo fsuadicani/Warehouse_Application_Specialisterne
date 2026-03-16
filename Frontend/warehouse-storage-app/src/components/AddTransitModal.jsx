@@ -49,19 +49,16 @@ function AddTransitModal({ onClose }) {
   ];
   const transitColumns = [
     { key: 'name', label: 'Name' },
-    { key: 'productNumber', label: 'Porduct Number' },
+    { key: 'productNumber', label: 'Product Number' },
     { key: 'inStock', label: 'In Stock' },
   ];
 
   const renderTransitActions = (tableIndex, item) => {
     if (tableIndex === 0) {
       return (
-        <>
-          <button type="button">{'<<'}</button>
-          <button type="button" onClick={() => setSelectedProduct(item.name)}>
-            {'>>'}
-          </button>
-        </>
+        <button type="button" onClick={() => setSelectedProduct(item.name)}>
+          {'>>'}
+        </button>
       );
     }
 
@@ -78,9 +75,18 @@ function AddTransitModal({ onClose }) {
         <div className="modal-table-grid">
           {transitGroups.map((group, index) => (
             <div key={group.title} className="modal-table-section">
-              <h2>{group.title}</h2>
-              {(index === 0 || index === 2) && <CitySelector label={index === 0 ? 'From' : 'To:'} />}
-              {index === 1 && <div className="modal-selector-spacer" aria-hidden="true" />}
+
+              <div className="modal-transit-header-container">
+                <h2>{group.title}</h2>
+              </div>
+
+              <div className="modal-transit-button-container">
+                {(index === 0 || index === 2) &&
+                    <CitySelector label={index === 0 ? 'From' : 'To:'} />}
+              </div>
+
+              <div>
+
               <div className="modal-table-scroll">
                 <DataTable
                   columns={transitColumns}
@@ -92,6 +98,9 @@ function AddTransitModal({ onClose }) {
                   tableClassName="modal-table"
                 />
               </div>
+
+              </div>
+
             </div>
           ))}
         </div>

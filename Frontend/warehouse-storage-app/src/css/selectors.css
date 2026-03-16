@@ -3,12 +3,12 @@
     background-color: #8f1212;
     padding-left: 10%;
     padding-right: 10%;
-    margin: 20px;
 }
 
 .page-selector-form {
     display: inline-flex;
     align-items: center;
+    margin-bottom: 0;
 }
 
 .modal-selector-form {
@@ -17,5 +17,5 @@
 }
 
 .modal-selector-spacer {
-    height: 80px;
+    height: 40px;
 }

@@ -16,7 +16,7 @@ function MenuLayout() {
         </div>
       </div>
 
-      <div className="content">
+      <div className="content-container">
         <Outlet />
       </div>
     </div>

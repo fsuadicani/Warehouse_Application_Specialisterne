@@ -30,6 +30,7 @@
     position: relative;
     width: 80%;
     max-height: 80%;
+    color: #000000;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
@@ -54,7 +55,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding: 56px 24px 24px;
+    padding: 24px 24px 24px;
 }
 
 .nested-modal-content h2 {
@@ -80,5 +81,15 @@
 .modal-accept-button {
     align-self: flex-start;
     padding: 10px 18px;
-    color: #000000;
+    color: #ffffff;
+}
+
+.modal-transit-header-container{
+    height:50px;
+    align-content: center;
+}
+.modal-transit-button-container {
+    height: 50px;
+    align-content: center;
+    text-align: center;
 }

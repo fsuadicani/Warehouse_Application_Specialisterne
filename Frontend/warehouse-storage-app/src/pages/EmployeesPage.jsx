@@ -18,13 +18,18 @@ function EmployeesPage() {
   ];
 
   return (
-    <div className="content">
-      <h1>Manage Employees</h1>
+    <div>
+        <div className="header-container">
+            <h1>Manage Employees</h1>
+        </div>
 
-      <button type="button" onClick={() => setIsModalOpen(true)}>
-        New Employee
-      </button>
-
+        <div className="button-container">
+            <div className="left-button-container">
+            <button type="button" onClick={() => setIsModalOpen(true)}>
+                New Employee
+            </button>
+            </div>
+        </div>
       <div className="tablecontainer">
         <DataTable
           columns={employeeColumns}

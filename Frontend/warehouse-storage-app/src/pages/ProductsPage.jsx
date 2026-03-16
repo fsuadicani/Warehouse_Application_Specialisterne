@@ -19,12 +19,19 @@ function ProductsPage() {
   ];
 
   return (
-    <div className="content">
-      <h1>Products</h1>
+    <div>
 
-      <button type="button" onClick={() => setIsModalOpen(true)}>
-        New Product
-      </button>
+        <div className="header-container">
+            <h1>Products</h1>
+        </div>
+
+        <div className="button-container">
+            <div className="left-button-container">
+                <button type="button" onClick={() => setIsModalOpen(true)}>
+                    New Product
+                </button>
+            </div>
+        </div>
 
       <div className="tablecontainer">
         <DataTable

@@ -4,20 +4,21 @@
         'header'
         'main';
     background-color: darkgrey;
-    gap: 10px;
 }
 
 .menu {
     display: grid;
     background-color: #535bf2;
-    padding: 20px;
+    height:75px;
     grid-area: header;
     grid-template-columns: minmax(80px, 1fr) 150px;
+    align-items: center;
+
 }
 
 .menu a {
     display: inline-block;
-    padding: 18px;
+    padding: 10px;
     margin: 7px;
     background-color: #535bf2;
     color: #ffffff;

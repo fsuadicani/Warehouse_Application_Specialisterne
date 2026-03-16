@@ -5,8 +5,7 @@
 
 table {
     border-collapse: collapse;
-    width: 90%;
-    margin-top: 0.5%;
+    width: 100%;
 }
 
 table,
@@ -15,6 +14,7 @@ td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
+    font-size: medium;
 }
 
 th {
@@ -37,7 +37,7 @@ th {
 }
 
 .row-actions-header {
-    text-align: right;
+    text-align: center;
     width: 1%;
     white-space: nowrap;
 }
@@ -56,7 +56,8 @@ th {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
-    padding: 48px 20px 20px;
+    padding: 20px;
+    overflow: auto;
 }
 
 .modal-table-section {
@@ -69,12 +70,13 @@ th {
     margin-top: 0;
     margin-bottom: 12px;
     font-size: 18px;
+    text-align: center;
 }
 
 .modal-table-scroll {
     overflow: auto;
     min-height: 0;
-    max-height: 40%;
+    max-height: 60vh;
 }
 
 @media (max-width: 1100px) {

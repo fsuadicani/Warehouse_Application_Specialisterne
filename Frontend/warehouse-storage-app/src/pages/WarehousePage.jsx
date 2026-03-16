@@ -7,13 +7,13 @@ import '../css/ui.css';
 
 function WarehousePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedWarehouse, setSelectedWarehouse] = useState(null);
-  const warehouses = [
+  const [selectedStock, setSelectedStock] = useState(null);
+  const stocks = [
     { name: 'Skruetrakker', inhouseLocation: 'A1-14', localPrice: '149.00', localCurrency: 'DKK', inStock: 42 },
     { name: 'Hammer', inhouseLocation: 'B2-07', localPrice: '89.50', localCurrency: 'DKK', inStock: 18 },
     { name: 'Boremaskine', inhouseLocation: 'C3-21', localPrice: '799.00', localCurrency: 'DKK', inStock: 7 },
   ];
-  const warehouseColumns = [
+  const stockColumns = [
     { key: 'name', label: 'Name' },
     { key: 'inhouseLocation', label: 'Inhouse Location' },
     { key: 'localPrice', label: 'Local Price' },
@@ -23,31 +23,42 @@ function WarehousePage() {
 
 
   return (
-    <div className="content">
-      <h1>Varehuse</h1>
+    <div>
+      <div className="header-container">
+          <h1>Warehouse</h1>
+      </div>
 
-      <CitySelector label="Vælg en by:" className="page-selector-form" />
+        <div className="button-container">
 
-      <button type="button" onClick={() => setIsModalOpen(true)}>
-        New Transit
-      </button>
+            <div className="left-button-container">
+                <button type="button" onClick={() => setIsModalOpen(true)}>
+                    New Transit
+                </button>
+            </div>
+
+            <div className="right-button-container">
+                <CitySelector label="Vælg en by:" className="page-selector-form" />
+            </div>
+
+        </div>
+
 
       <div className="tablecontainer">
         <DataTable
-          columns={warehouseColumns}
-          rows={warehouses}
-          getRowKey={(warehouse) => `${warehouse.name}-${warehouse.inhouseLocation}`}
-          renderActions={(warehouse) => (
-            <button type="button" onClick={() => setSelectedWarehouse(warehouse)}>Edit</button>
+          columns={stockColumns}
+          rows={stocks}
+          getRowKey={(stock) => `${stock.name}-${stock.inhouseLocation}`}
+          renderActions={(stock) => (
+            <button type="button" onClick={() => setSelectedStock(stock)}>Edit</button>
           )}
         />
       </div>
 
       {isModalOpen && <AddTransitModal onClose={() => setIsModalOpen(false)} />}
-      {selectedWarehouse && (
+      {selectedStock && (
         <EditWarehouseModal
-          onClose={() => setSelectedWarehouse(null)}
-          initialValues={selectedWarehouse}
+          onClose={() => setSelectedStock(null)}
+          initialValues={selectedStock}
         />
       )}
     </div>

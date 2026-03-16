@@ -42,8 +42,15 @@ function TransitsPage() {
   ];
 
   return (
-    <div className="content">
-      <h1>Transits</h1>
+    <div>
+
+      <div className="header-container">
+        <h1>Transits</h1>
+      </div>
+
+      <div className="button-container">
+      </div>
+
 
       <div className="tablecontainer">
         <DataTable
