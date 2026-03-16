@@ -27,9 +27,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator{
             if (Encoding.UTF8.GetByteCount(jwtKey) < 32)
                 throw new InvalidOperationException("JWT key must be at least 256 bits (32 bytes).");
 
-            var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtKey));            
-                Encoding.UTF8.GetBytes(_config["Jwt:Key"]!);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
 
         var credentials = new SigningCredentials(
             key,
@@ -48,6 +46,8 @@ public class JwtTokenGenerator : IJwtTokenGenerator{
         }
 
         var token = new JwtSecurityToken(
+            issuer: "WarehouseStorage",
+            audience: "WarehouseStorage",
             claims: claims,
             expires: DateTime.UtcNow.AddHours(2),
             signingCredentials: credentials);
