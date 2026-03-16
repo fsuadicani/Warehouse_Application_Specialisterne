@@ -10,6 +10,7 @@ public class AuthService
 {
     private readonly IUserRepository _userRepository;
     private readonly IJwtTokenGenerator _jwt;
+    private static readonly string DummyHash = BCrypt.Net.BCrypt.HashPassword("never-match-password", workFactor: 12);
 
     public AuthService(IUserRepository userRepository,
                        IJwtTokenGenerator jwt)
@@ -42,13 +43,13 @@ public class AuthService
         var user = await _userRepository.GetByUsernameAsync(request.Username);
         
         // Always perform hash verification to prevent timing-based username enumeration
-        var hashToVerify = user?.PasswordHash ?? "$2a$12$000000000000000000000uDummyHashForConstantTimeComparison";
+        var hashToVerify = user?.PasswordHash ?? DummyHash;
         var passwordValid = BCrypt.Net.BCrypt.Verify(request.Password, hashToVerify);
 
         if (user == null || !passwordValid)
             throw new InvalidCredentialsException("Invalid credentials");
 
-        var token = await _jwt.GenerateTokenAsync(user);
+        var token = await _jwt.GenerateTokenAsync(user!);
 
         return new AuthResponse(token);
     }}

@@ -16,9 +16,13 @@ public class ProductRepository : IProductRepository
         return await _context.Products.FindAsync(id);
     }
 
-    public async Task<Product[]> GetAll()
+    public async Task<Product[]> GetAll(int skip = 0, int take = 100)
     {
-        return await _context.Products.ToArrayAsync();
+        return await _context.Products
+            .AsNoTracking()
+            .Skip(skip)
+            .Take(take)
+            .ToArrayAsync();
     }
 
     public async Task<Product> Add(Product product)
