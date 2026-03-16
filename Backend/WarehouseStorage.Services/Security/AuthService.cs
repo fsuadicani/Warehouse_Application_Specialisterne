@@ -22,13 +22,13 @@ public class AuthService
 
     public async Task<AuthResponse> RegisterAsync(RegisterRequest request)
     {
-        var existing = await _userRepository.GetByUsernameAsync(request.username);
+        var existing = await _userRepository.GetByUsernameAsync(request.Username);
         if (existing != null)
             throw new UserAlreadyExistsException("User already exists");
 
         var user = new ApplicationUser
         {
-            UserName = request.username,
+            UserName = request.Username,
         };
 
         await _userRepository.AddAsync(user, request.Password);
@@ -41,7 +41,7 @@ public class AuthService
 
     public async Task<AuthResponse> LoginAsync(LoginRequest request)
     {
-        ApplicationUser? user = await _userRepository.GetByUsernameAsync(request.username);
+        ApplicationUser? user = await _userRepository.GetByUsernameAsync(request.Username);
 
         if (user == null || !await _userManager.CheckPasswordAsync(user, request.Password))
             throw new InvalidCredentialsException("Invalid credentials");

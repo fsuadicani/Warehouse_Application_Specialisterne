@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WarehouseStorage.Domain.Enums;
 using WarehouseStorage.Domain.Models;
+using WarehouseStorage.Services.Repositories.Interfaces;
 
 namespace WarehouseStorage.Services.Repositories;
 

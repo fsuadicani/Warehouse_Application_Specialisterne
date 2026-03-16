@@ -1,0 +1,110 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Lucida Sans", sans-serif;
+    font-size: 17px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+    'header'
+    'main';
+    background-color: darkgrey;
+    gap: 10px;
+}
+
+.menu {
+    display: grid;
+    background-color: #535bf2;
+    padding: 20px;
+    grid-area: menu;
+    grid-template-columns: minmax(80px, 1fr) 150px;
+}
+
+.menu a {
+    display: inline-block;
+    padding: 18px;
+    margin: 7px;
+    background-color: #535bf2;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    background-color: #0099cc;
+}
+
+.menu a.active {
+    background-color: #007fa6;
+}
+
+.content {
+    grid-area: main;
+    padding-top: 10px;
+    margin-left: 5%;
+
+}
+
+
+
+.content > p {
+    margin-bottom: 7px;
+}
+
+div.tablecontainer {
+    grid-area: main;
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 90%;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #33b5e5;
+}
+
+.row-actions {
+    white-space: nowrap;
+}
+
+.row-actions button {
+    margin-right: 8px;
+}
+
+.row-actions button:last-child {
+    margin-right: 0;
+}
+
+.table-error {
+    color: #8f1212;
+    font-weight: bold;
+}
+
+@media (min-width: 600px) {
+    .menu {grid-area: 1 / span 1;}
+    .content {grid-area: 2 / span 1;}
+}
+
+@media (min-width: 768px) {
+    .menu {grid-area: 1 / span 1;}
+    .content {grid-area: 2 / span 1;}
+}
+
+.citySelector {
+    padding : 10px;
+    background-color: #8f1212;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin: 20px;
+}

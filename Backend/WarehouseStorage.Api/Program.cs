@@ -27,6 +27,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<WarehouseDbContext>()
     .AddDefaultTokenProviders();
 
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets<Program>(optional: true, reloadOnChange: true);
+}
 // JWT Token Setup
 builder.Services.AddAuthentication(options =>
 {
@@ -59,6 +63,11 @@ builder.Services.AddAuthorizationBuilder()
 
 builder.Services.AddScoped<AuthService>();
 
+//Add Identity to have EF manage users
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<WarehouseDbContext>()
+    .AddDefaultTokenProviders();
+
 builder.Services.AddTransient<RoleSeeder>();
 
 var app = builder.Build();
@@ -71,8 +80,8 @@ using (var scope = app.Services.CreateScope())
     await roleSeeder.SeedRolesAsync();
 }
 
-app.UseRouting();
-if (!app.Environment.IsDevelopment())
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.UseHttpsRedirection();
@@ -92,4 +101,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-app.Run();
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();

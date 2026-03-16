@@ -1,8 +1,6 @@
-# Lageropgave_Specialisterne
+# Lageropgave_SpecialisterneMake sure you have set the following with dotnet user-secrets set "key" "value"
 
-
-# Api Backend Archtecture
-With CoPilot
+# Api Backend ArchitectureWith CoPilot
 
 warehouse-storage-api/
 │
@@ -37,6 +35,11 @@ To remove database:
 Run: dotnet ef database drop
 
 If making model changes, consider deleting migrations and recreating unless we want migration history
+
+# Secret configuration
+Development-time application secrets are loaded through .NET User Secrets in the API startup, but the active UserSecretsId currently lives in WarehouseStorage.Infrastructure. Program.cs therefore loads user secrets from the infrastructure assembly only in Development so values such as JWT settings can flow into IConfiguration without checking secrets into source control.
+
+DotNetEnv is still in active use in WarehouseStorage.Infrastructure/ConnectionString.cs and is therefore currently the primary source only for the DB_* variables consumed by infrastructure tooling and Npgsql connection string creation. To avoid duplicate or conflicting secret loading, keep application configuration keys such as Jwt:* in User Secrets and reserve .env values for the DB_* variables until database configuration is moved fully into IConfiguration.
 
 # References
 1. [UI_design](https://www.canva.com/)
