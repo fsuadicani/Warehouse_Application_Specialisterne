@@ -42,6 +42,18 @@ namespace WarehouseStorage.Services.Factories
                 DomainFactory.CreateCurrency(currencyCode),
                 productId);
         }
+
+        public static ProductDTO CreateProductDTO(Product product)
+        {
+            return new ProductDTO
+            {
+                Id = product.Id,
+                Name = product.Name.value,
+                Number = product.Number.value,
+                DefaultPrice = product.DefaultPrice.value,
+                DefaultCurrency = product.DefaultCurrency.value
+            };
+        }
         
 
         public static Transit CreateTransit(TransitDTO transit)
