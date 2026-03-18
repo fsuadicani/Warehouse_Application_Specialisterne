@@ -42,6 +42,18 @@ namespace WarehouseStorage.Services.Factories
                 DomainFactory.CreateCurrency(currencyCode),
                 productId);
         }
+
+        public static ProductDTO CreateProductDTO(Product product)
+        {
+            return new ProductDTO
+            {
+                Id = product.Id,
+                Name = product.Name.value,
+                Number = product.Number.value,
+                DefaultPrice = product.DefaultPrice.value,
+                DefaultCurrency = product.DefaultCurrency.value
+            };
+        }
         
 
         public static Transit CreateTransit(TransitDTO transit)
@@ -101,6 +113,18 @@ namespace WarehouseStorage.Services.Factories
             };
 
             return createdWarehouse;
+        }
+
+        public static WarehouseDTO CreateWarehouseDTO(Warehouse warehouse)
+        {
+            return new WarehouseDTO
+            {
+                Id = warehouse.Id,
+                City = warehouse.Location.Address.City.value,
+                Street = warehouse.Location.Address.Street.value,
+                StreetNumber = warehouse.Location.Address.StreetNumber.value,
+                ZipCode = warehouse.Location.Address.ZipCode.value
+            };
         }
     }
 }

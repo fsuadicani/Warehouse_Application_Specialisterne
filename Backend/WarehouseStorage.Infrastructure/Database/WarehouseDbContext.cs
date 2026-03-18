@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 public class WarehouseDbContext : IdentityDbContext<ApplicationUser>
 {
     public DbSet<Product> Products => Set<Product>();
+    public DbSet<Warehouse> Warehouses => Set<Warehouse>();
 
     public WarehouseDbContext(DbContextOptions<WarehouseDbContext> options)
         : base(options)
