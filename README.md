@@ -19,7 +19,7 @@ Right now it only works with postgres (TODO Make it more agnostic)
 
 Make sure you have set following with dotnet user-secrets set "key" "value"
 
-In API
+In Infrastructure
 dotnet user-secrets set "DB_HOST" "Hostname" (Localhost)
 dotnet user-secrets set "DB_USERNAME" "Database user name" (postgres)
 dotnet user-secrets set "DB_PASSWORD" "Database password" (YourPassword)

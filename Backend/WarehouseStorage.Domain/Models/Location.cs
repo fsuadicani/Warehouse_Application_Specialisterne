@@ -9,8 +9,10 @@ namespace WarehouseStorage.Domain.Models
     {
         public Guid? Id { get; private set;}
 
-        public Guid ReferenceId { get; private set; }
+        // public Guid ReferenceId { get; private set; }
 
-        public Stock? Stock { get; set; }
+        public IEnumerable<Stock?> Stocks { get; set; }
+
+        public Address Address { get; set; }
     }
 }
