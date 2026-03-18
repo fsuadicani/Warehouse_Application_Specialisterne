@@ -10,26 +10,26 @@ function AddTransitModal({ onClose }) {
     {
       title: 'Start Warehouse',
       items: [
-        { name: 'Skruetrakker', productNumber: 'PRD-1001', inStock: 42 },
-        { name: 'Hammer', productNumber: 'PRD-1002', inStock: 18 },
-        { name: 'Skruetrakker', productNumber: 'PRD-1001', inStock: 42 },
-        { name: 'Hammer', productNumber: 'PRD-1002', inStock: 18 },
-        { name: 'Skruetrakker', productNumber: 'PRD-1001', inStock: 42 },
-        { name: 'Hammer', productNumber: 'PRD-1002', inStock: 18 },
-        { name: 'Skruetrakker', productNumber: 'PRD-1001', inStock: 42 },
-        { name: 'Hammer', productNumber: 'PRD-1002', inStock: 18 },
-        { name: 'Skruetrakker', productNumber: 'PRD-1001', inStock: 42 },
-        { name: 'Hammer', productNumber: 'PRD-1002', inStock: 18 },
-        { name: 'Skruetrakker', productNumber: 'PRD-1001', inStock: 42 },
-        { name: 'Hammer', productNumber: 'PRD-1002', inStock: 18 },
-        { name: 'Skruetrakker', productNumber: 'PRD-1001', inStock: 42 },
-        { name: 'Hammer', productNumber: 'PRD-1002', inStock: 18 },
-        { name: 'Skruetrakker', productNumber: 'PRD-1001', inStock: 42 },
-        { name: 'Hammer', productNumber: 'PRD-1002', inStock: 18 },
-        { name: 'Skruetrakker', productNumber: 'PRD-1001', inStock: 42 },
-        { name: 'Hammer', productNumber: 'PRD-1002', inStock: 18 },
-        { name: 'Skruetrakker', productNumber: 'PRD-1001', inStock: 42 },
-        { name: 'Hammer', productNumber: 'PRD-1002', inStock: 18 },
+        { name: 'Skruetrakker', productNumber: 'PRD-1001', fromStock: 42, toStock: 0 },
+        { name: 'Hammer', productNumber: 'PRD-1002', fromStock: 18, toStock: 0 },
+        { name: 'Skruetrakker', productNumber: 'PRD-1001', fromStock: 42, toStock: 0 },
+        { name: 'Hammer', productNumber: 'PRD-1002', fromStock: 18, toStock: 0 },
+        { name: 'Skruetrakker', productNumber: 'PRD-1001', fromStock: 42, toStock: 0 },
+        { name: 'Hammer', productNumber: 'PRD-1002', fromStock: 18, toStock: 0 },
+        { name: 'Skruetrakker', productNumber: 'PRD-1001', fromStock: 42, toStock: 0 },
+        { name: 'Hammer', productNumber: 'PRD-1002', fromStock: 18, toStock: 0 },
+        { name: 'Skruetrakker', productNumber: 'PRD-1001', fromStock: 42, toStock: 0 },
+        { name: 'Hammer', productNumber: 'PRD-1002', fromStock: 18, toStock: 0 },
+        { name: 'Skruetrakker', productNumber: 'PRD-1001', fromStock: 42, toStock: 0 },
+        { name: 'Hammer', productNumber: 'PRD-1002', fromStock: 18, toStock: 0 },
+        { name: 'Skruetrakker', productNumber: 'PRD-1001', fromStock: 42, toStock: 0 },
+        { name: 'Hammer', productNumber: 'PRD-1002', fromStock: 18, toStock: 0 },
+        { name: 'Skruetrakker', productNumber: 'PRD-1001', fromStock: 42, toStock: 0 },
+        { name: 'Hammer', productNumber: 'PRD-1002', fromStock: 18, toStock: 0 },
+        { name: 'Skruetrakker', productNumber: 'PRD-1001', fromStock: 42, toStock: 0 },
+        { name: 'Hammer', productNumber: 'PRD-1002', fromStock: 18, toStock: 0 },
+        { name: 'Skruetrakker', productNumber: 'PRD-1001', fromStock: 42, toStock: 0 },
+        { name: 'Hammer', productNumber: 'PRD-1002', fromStock: 18, toStock: 0 },
       ],
     },
     {
@@ -39,13 +39,12 @@ function AddTransitModal({ onClose }) {
         { name: 'Sav', productNumber: 'PRD-1004', inStock: 11 },
       ],
     },
-    {
-      title: 'Destination Warehouse',
-      items: [
-        { name: 'Malespand', productNumber: 'PRD-1005', inStock: 24 },
-        { name: 'Skiftenogle', productNumber: 'PRD-1006', inStock: 13 },
-      ],
-    },
+  ];
+  const startColumns = [
+    { key: 'name', label: 'Name' },
+    { key: 'productNumber', label: 'Product Number' },
+    { key: 'fromStock', label: 'From Stock' },
+    { key: 'toStock', label: 'To Stock' },
   ];
   const transitColumns = [
     { key: 'name', label: 'Name' },
@@ -81,15 +80,27 @@ function AddTransitModal({ onClose }) {
               </div>
 
               <div className="modal-transit-button-container">
-                {(index === 0 || index === 2) &&
-                    <CitySelector label={index === 0 ? 'From' : 'To:'} />}
+                <div className="modal-transit-button-container-left">
+                  {
+                      (index === 0) &&
+                      <CitySelector label={'From'} />
+                  }
+                </div>
+
+                <div className="modal-transit-button-container-right">
+                  {
+                      (index === 0) &&
+                      <CitySelector label={'To'} />
+                  }
+                </div>
+
               </div>
 
               <div>
 
               <div className="modal-table-scroll">
                 <DataTable
-                  columns={transitColumns}
+                  columns={index === 0 ? startColumns : transitColumns}
                   rows={group.items}
                   getRowKey={(item, itemIndex) => `${group.title}-${item.productNumber}-${itemIndex}`}
                   renderActions={index === 0 || index === 1 ? (item) => renderTransitActions(index, item) : undefined}

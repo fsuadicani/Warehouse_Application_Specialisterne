@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+
 function LoginPage({ onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -163,54 +164,79 @@ function LoginPage({ onLogin }) {
 
   return (
     <browserRouter>
-      <form className="login-form" onSubmit={handleSubmit}>
-        <div className="login-grid">
-          <div className="field-column">
-            <input
-              type="text"
-              id="username"
-              name="username"
-              placeholder="Enter your username"
-              required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
+      <div className="header-container">
+        <h1></h1>
+      </div>
+      <div className="button-container"/>
 
-            <div className="form-meta">
-              <label className="remember">
+      <div className="login-container">
+
+        <div className="login-box">
+          <div className="header-container">
+            <h1>Velkommen</h1>
+          </div>
+          <div className="header-container">
+            <h2>Login herunder:</h2>
+          </div>
+          <form className="login-form" onSubmit={handleSubmit}>
+            <div className="login-grid">
+              <div className="field-column">
                 <input
-                  type="checkbox"
-                  id="remember"
-                  name="remember"
-                  checked={remember}
-                  onChange={(e) => setRemember(e.target.checked)}
-                />{' '}
-                Remember me
-              </label>
-              <a href="#">Forgot password?</a>
+                    className="input"
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter your username"
+                    required
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+
+
+
+              <div className="field-column field-column-password">
+                <input
+                    className={`input`}
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+
+
+              </div>
+                <div className="form-meta">
+                  <label className="remember">
+                    <input
+                        type="checkbox"
+                        id="remember"
+                        name="remember"
+                        checked={remember}
+                        onChange={(e) => setRemember(e.target.checked)}
+                    />{' '}
+                    Remember me
+                  </label>
+                  <a href="#">Forgot password?</a>
+                </div>
+              <div>
+                <button className="login-submit" type="submit">
+                  Login
+                </button>
+              </div>
+
             </div>
-          </div>
 
-          <div className="field-column field-column-password">
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            {isAuthenticated && <p className="login-success">Login successful.</p>}
+            {errorMessage && <p className="login-error">{errorMessage}</p>}
+          </form>
 
-            <button className="login-submit" type="submit">
-              Login
-            </button>
-          </div>
         </div>
+      </div>
 
-        {isAuthenticated && <p className="login-success">Login successful.</p>}
-        {errorMessage && <p className="login-error">{errorMessage}</p>}
-      </form>
     </browserRouter>
   );
 }

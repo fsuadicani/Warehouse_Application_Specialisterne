@@ -3,12 +3,12 @@
     grid-template-areas:
         'header'
         'main';
-    background-color: darkgrey;
+    background-color: #f4f4f3;
 }
 
 .menu {
     display: grid;
-    background-color: #535bf2;
+    background-color: #252525;
     height:75px;
     grid-area: header;
     grid-template-columns: minmax(80px, 1fr) 150px;
@@ -20,15 +20,41 @@
     display: inline-block;
     padding: 10px;
     margin: 7px;
-    background-color: #535bf2;
+    background-color: #252525;
     color: #ffffff;
     text-decoration: none;
 }
 
 .menu a:hover {
-    background-color: #0099cc;
+    background-color: #535353;
 }
 
 .menu a.active {
     background-color: #007fa6;
+}
+
+.login-box {
+    width: 400px;
+    height: 500px;
+    padding: 20px;
+    background-color: #eaeae9;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: thin;
+}
+
+.login-container{
+    display: flex;
+    justify-content: center;
+}
+
+.form-meta{
+    display: flex;
+    justify-content: space-between;
+}
+
+.login-grid{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }

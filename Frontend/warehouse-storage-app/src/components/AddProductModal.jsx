@@ -15,6 +15,7 @@ function AddProductModal({ onClose, title = 'New Product', submitLabel = 'Create
       fields={productFields}
       initialValues={initialValues}
       submitLabel={submitLabel}
+      validateRequired
     />
   );
 }

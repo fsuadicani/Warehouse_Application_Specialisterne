@@ -34,6 +34,7 @@
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    overflow: auto;
 }
 
 .transit-modal-content {
@@ -49,6 +50,9 @@
     background: transparent;
     font-size: 20px;
     cursor: pointer;
+}
+.modal-close:hover {
+    background: transparent;
 }
 
 .nested-modal-content {
@@ -78,10 +82,20 @@
     border: 1px solid #999999;
 }
 
+.modal-input-error {
+    border-color: #c62828;
+}
+
 .modal-accept-button {
     align-self: flex-start;
     padding: 10px 18px;
     color: #ffffff;
+}
+
+.modal-error-message {
+    margin: 0;
+    color: #c62828;
+    font-weight: 600;
 }
 
 .modal-transit-header-container{
@@ -89,7 +103,13 @@
     align-content: center;
 }
 .modal-transit-button-container {
-    height: 50px;
-    align-content: center;
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
     text-align: center;
+}
+.modal-transit-button-container-left {
+flex-grow: 1;
+}
+.modal-transit-button-container-right {flex-grow: 1;
 }

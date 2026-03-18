@@ -32,3 +32,17 @@ body {
 .content > p {
     margin-bottom: 7px;
 }
+
+.input {
+    width: 100%;
+    padding: 10px 12px;
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid #999999;
+}
+
+.login-submit {
+    width: 100%;
+    padding: 12px;
+    line-height: 1;
+}

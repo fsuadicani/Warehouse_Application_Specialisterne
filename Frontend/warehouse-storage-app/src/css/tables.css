@@ -6,11 +6,13 @@
 table {
     border-collapse: collapse;
     width: 100%;
+    background-color: #eaeae9;
 }
 
 table,
 th,
-td {
+td
+{
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
@@ -54,10 +56,11 @@ th {
 
 .modal-table-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 16px;
     padding: 20px;
     overflow: auto;
+    min-width: 400px;
 }
 
 .modal-table-section {
@@ -83,4 +86,14 @@ th {
     .modal-table-grid {
         grid-template-columns: 1fr;
     }
+
+    table,
+    th,
+    td
+    {
+
+        font-size: small;
+
+    }
+
 }

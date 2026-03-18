@@ -1,21 +1,21 @@
-import Modal from './Modal.jsx';
+import FormModal from './FormModal.jsx';
+
+const quantityFields = [
+  { name: 'quantity', label: 'Quantity' },
+];
 
 function TransitQuantityModal({ onClose, productName }) {
   return (
-    <Modal
+    <FormModal
       onClose={onClose}
-      className="modal modal-small"
+      title={productName}
+      fields={quantityFields}
+      submitLabel="Accept"
+      modalClassName="modal modal-small"
       overlayClassName="modal-overlay-front"
       closeLabel="Close quantity modal"
-    >
-      <div className="nested-modal-content">
-        <h2>{productName}</h2>
-        <input type="text" className="modal-input" />
-        <button type="button" className="modal-accept-button">
-          Accept
-        </button>
-      </div>
-    </Modal>
+      validateRequired
+    />
   );
 }
 

@@ -16,6 +16,7 @@ function EditWarehouseModal({ onClose, initialValues = {} }) {
       fields={warehouseFields}
       initialValues={initialValues}
       submitLabel="Save"
+      validateRequired
     />
   );
 }

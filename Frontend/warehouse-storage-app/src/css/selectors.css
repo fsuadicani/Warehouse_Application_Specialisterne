@@ -1,8 +1,11 @@
 .citySelector {
-    padding: 10px;
-    background-color: #8f1212;
-    padding-left: 10%;
-    padding-right: 10%;
+    background-color: white;
+    padding: 10px 5% 10px 5%;
+    margin: 10px 5% 10px 5%;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid;
+
 }
 
 .page-selector-form {
@@ -12,10 +15,8 @@
 }
 
 .modal-selector-form {
-    display: inline-flex;
+    display: flex;
+    flex-grow: 1;
     align-items: center;
 }
 
-.modal-selector-spacer {
-    height: 40px;
-}

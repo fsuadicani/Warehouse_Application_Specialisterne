@@ -19,8 +19,8 @@ function ProductsPage() {
   ];
 
   return (
-    <div>
 
+    <div>
         <div className="header-container">
             <h1>Products</h1>
         </div>
@@ -40,7 +40,7 @@ function ProductsPage() {
           getRowKey={(product) => product.number}
           renderActions={(product) => (
             <>
-              <button type="button" onClick={() => setSelectedProduct(product)}>Edit</button>
+              <button  type="button" onClick={() => setSelectedProduct(product)}>Edit</button>
               <button type="button">Delete</button>
               <button type="button">Duplicate</button>
             </>
