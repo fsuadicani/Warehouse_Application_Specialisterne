@@ -26,8 +26,16 @@ namespace WarehouseStorage.Infrastructure
             var port = _configuration["DB_PORT"];
             var database = _configuration["DB_NAME"];
 
-            if (string.IsNullOrEmpty(host) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-                throw new Exception("Database environment variables are not set.");
+            if(string.IsNullOrEmpty(username))
+                throw new InvalidOperationException($"Required database configuration value: {nameof(username)} not set.");
+            if(string.IsNullOrEmpty(host))
+                throw new InvalidOperationException($"Required database configuration value: {nameof(host)} not set.");
+            if(string.IsNullOrEmpty(password))
+                throw new InvalidOperationException($"Required database configuration value: {nameof(password)} not set.");
+            if(string.IsNullOrEmpty(port))
+                throw new InvalidOperationException($"Required database configuration value: {nameof(port)} not set.");           
+            if(string.IsNullOrEmpty(database))
+                throw new InvalidOperationException($"Required database configuration value: {nameof(database)} not set."); 
 
             return $"Host={host};Port={port};Database={database};Username={username};Password={password}"; 
         }

@@ -37,9 +37,18 @@ namespace WarehouseStorage.Infrastructure.Database
               .HasConversion<string>();
 
             //RElationships
-            builder.HasMany(l => l.StockLocations)
-                .WithOne()
-                .HasForeignKey("ReferenceId");
+
+            builder.HasOne(l => l.Location)
+                .WithMany()                
+                .HasForeignKey("LocationId");
+
+            builder.HasOne(l => l.Destination)
+                .WithMany()      
+                .HasForeignKey("DestinationId");
+
+            builder.HasOne(l => l.Origin)
+                .WithMany()      
+                .HasForeignKey("OriginId");
         }
     }
 }

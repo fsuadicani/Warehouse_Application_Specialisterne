@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using WarehouseStorage.Domain.DomainPrimitives;
@@ -18,11 +19,15 @@ namespace WarehouseStorage.Domain.Models
         private Transit() { } // EF Core
 
         //Relationsships
-        public ICollection<Location> StockLocations  { get; set; }
+        public Guid LocationId {get ; private set; }
+        public Location Location  { get; set; }
 
-        public Warehouse Destination { get; set; }
+        public Guid DestinationId {get ; private set; }
 
-        public Warehouse Origin { get; set; }
+        public Location Destination { get; set; }
+        public Guid OriginId {get ; private set; }
+
+        public Location Origin { get; set; }
 
         public Transit(TransitNumber transitNumber, PickUpCode pickUpCode, Coordinates coordinates, CompanyName companyName, DeliveryStatus deliveryStatus, Guid? id)
         {

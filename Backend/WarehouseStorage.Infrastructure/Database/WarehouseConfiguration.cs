@@ -13,9 +13,7 @@ namespace WarehouseStorage.Infrastructure.Database
     {
         public void Configure(EntityTypeBuilder<Warehouse> builder)
         {
-            builder.HasMany(l => l.StockLocations)
-                .WithOne()
-                .HasForeignKey("ReferenceId");
+            builder.HasOne(l => l.Location);
         }
     }
 }

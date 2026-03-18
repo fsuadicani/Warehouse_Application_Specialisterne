@@ -10,10 +10,10 @@ namespace WarehouseStorage.Domain.Models
         public Guid? Id { get; private set; }
         private Warehouse() { } // EF Core
 
-        //Relationsships
-        public Address Address { get; set; }
+        //Relationships
+        // public Address Address { get; set; }
 
-        public ICollection<Location> StockLocations  { get; set; }
+        public Location Location  { get; set; }
 
         public Warehouse(Guid? id)
         {
