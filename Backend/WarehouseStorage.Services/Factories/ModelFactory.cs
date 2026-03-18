@@ -82,12 +82,16 @@ namespace WarehouseStorage.Services.Factories
 
             var createdWarehouse = new Warehouse(warehouseId)
             {
-                Address = new Address(
-                    DomainFactory.CreateCity(warehouse.City),
-                    DomainFactory.CreateStreetName(warehouse.Street),
-                    DomainFactory.CreateStreetNumber(warehouse.StreetNumber),
-                    DomainFactory.CreateZipCode(warehouse.ZipCode),
-                    addressId)
+                Location = new Location()
+                {
+                    Address = new Address(
+                        DomainFactory.CreateCity(warehouse.City),
+                        DomainFactory.CreateStreetName(warehouse.Street),
+                        DomainFactory.CreateStreetNumber(warehouse.StreetNumber),
+                        DomainFactory.CreateZipCode(warehouse.ZipCode),
+                        addressId)
+                    
+                }
             };
 
             return createdWarehouse;
