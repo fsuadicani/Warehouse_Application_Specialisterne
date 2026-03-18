@@ -1,5 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <UserSecretsId>e66201ca-235b-4e6d-a99b-2b4cfdefc091</UserSecretsId>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\WarehouseStorage.Domain\WarehouseStorage.Domain.csproj" />
   </ItemGroup>

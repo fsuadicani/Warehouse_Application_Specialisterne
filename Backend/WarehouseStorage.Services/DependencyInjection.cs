@@ -3,9 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WarehouseStorage.Infrastructure;
 using WarehouseStorage.Services.Repositories;
-using WarehouseStorage.Services.Security.Interfaces;
-using WarehouseStorage.Services.Repositories.Interfaces;
 using WarehouseStorage.Services.Security;
+using WarehouseStorage.Services.Security.Interfaces;
 
 namespace WarehouseStorage.Services;
 

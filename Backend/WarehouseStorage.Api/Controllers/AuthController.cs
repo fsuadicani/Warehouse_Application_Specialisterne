@@ -4,8 +4,10 @@ using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
+using WarehouseStorage.Domain.Enums;
 using WarehouseStorage.Domain.Exceptions;
 using WarehouseStorage.Services.Security;
 
@@ -22,8 +24,23 @@ namespace WarehouseStorage.Api.Controllers
             _authService = authService;
         }
 
+        [Authorize]
         [HttpGet("Ping")]
         public ActionResult Ping()
+        {
+            return Ok();
+        }
+
+        [Authorize(nameof(Policy.RequireAdministratorRole))]
+        [HttpGet("Ping-admin")]
+        public ActionResult PingAdmin()
+        {
+            return Ok();
+        }
+
+        [Authorize(nameof(Policy.RequireEmployeeRole))]
+        [HttpGet("Ping-emp")]
+        public ActionResult PingEmp()
         {
             return Ok();
         }

@@ -41,20 +41,15 @@ public class UserRepository : IUserRepository
 
     public async Task<bool> AddToRoleAsync(ApplicationUser user, Role role)
     {
-        var roleName = role.ToString();
-        if (!await _roleManager.RoleExistsAsync(roleName))
+        if (!await _roleManager.RoleExistsAsync(role.ToString()))
         {
-            var createResult = await _roleManager.CreateAsync(new IdentityRole(roleName));
-            // If creation failed and role still doesn't exist, we have a real problem
-            if (!createResult.Succeeded && !await _roleManager.RoleExistsAsync(roleName))
-            {
-                return false;
-            }
+            await _roleManager.CreateAsync(new IdentityRole(role.ToString()));
         }
 
-        var result = await _userManager.AddToRoleAsync(user, roleName);
+        var result = await _userManager.AddToRoleAsync(user, role.ToString());
         return result.Succeeded;
     }
+
     public async Task<IList<string>> GetRolesAsync(ApplicationUser user)
     {
         return await _userManager.GetRolesAsync(user);

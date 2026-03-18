@@ -1,50 +1,23 @@
+using System.Diagnostics;
+using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using WarehouseStorage.Domain.Enums;
 using WarehouseStorage.Domain.Models;
-using WarehouseStorage.Infrastructure;
 using WarehouseStorage.Services;
 using WarehouseStorage.Services.Security;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddUserSecrets<Program>();
+
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
-
-if (builder.Environment.IsDevelopment())
-{
-    builder.Configuration.AddUserSecrets<Program>(optional: true, reloadOnChange: true);
-}
-// JWT Token Setup
-builder.Services.AddAuthentication("Bearer")
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
-            )
-        };
-    });
-
-//Build the different policies for access to Endpoints
-builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("RequireAdministratorRole",
-         policy => policy.RequireRole(Role.ADMIN.ToString()))
-    .AddPolicy("RequireEmployeeRole",
-        policy => policy.RequireRole(Role.EMPLOYEE.ToString()));
-
-builder.Services.AddScoped<AuthService>();
 
 //Setup Database
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -53,6 +26,38 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<WarehouseDbContext>()
     .AddDefaultTokenProviders();
+
+// JWT Token Setup
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        
+        ValidateIssuer = true,
+        ValidIssuer = "WarehouseStorage",
+        ValidateAudience = true,
+        ValidAudience = "WarehouseStorage",
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+        )
+    };
+});
+
+//Build the different policies for access to Endpoints
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy(Policy.RequireAdministratorRole.ToString(),
+         policy => policy.RequireRole(Role.ADMIN.ToString()))
+    .AddPolicy(Policy.RequireEmployeeRole.ToString(),
+        policy => policy.RequireRole(Role.EMPLOYEE.ToString()));
+
+builder.Services.AddScoped<AuthService>();
 
 builder.Services.AddTransient<RoleSeeder>();
 
@@ -72,12 +77,22 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
-app.MapControllers();
+app.UseRouting();
 
 app.UseHttpsRedirection();
+
+app.Use(async (context, next) =>
+{
+    Console.WriteLine("Request Headers:");
+    foreach (var header in context.Request.Headers)
+    {
+        Console.WriteLine($"{header.Key}: {header.Value}");
+    }
+    await next();
+});
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
+
+app.Run();

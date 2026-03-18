@@ -1,8 +1,8 @@
 using BCrypt.Net;
+using Microsoft.AspNetCore.Identity;
 using WarehouseStorage.Domain.Enums;
 using WarehouseStorage.Domain.Exceptions;
 using WarehouseStorage.Domain.Models;
-using WarehouseStorage.Services.Repositories.Interfaces;
 using WarehouseStorage.Services.Security.Interfaces;
 
 namespace WarehouseStorage.Services.Security;
@@ -10,13 +10,14 @@ public class AuthService
 {
     private readonly IUserRepository _userRepository;
     private readonly IJwtTokenGenerator _jwt;
-    private static readonly string DummyHash = BCrypt.Net.BCrypt.HashPassword("never-match-password", workFactor: 12);
 
-    public AuthService(IUserRepository userRepository,
-                       IJwtTokenGenerator jwt)
+    private readonly UserManager<ApplicationUser> _userManager;
+
+    public AuthService(IUserRepository userRepository, IJwtTokenGenerator jwt, UserManager<ApplicationUser> userManager)
     {
         _userRepository = userRepository;
         _jwt = jwt;
+        _userManager = userManager;
     }
 
     public async Task<AuthResponse> RegisterAsync(RegisterRequest request)
@@ -40,16 +41,13 @@ public class AuthService
 
     public async Task<AuthResponse> LoginAsync(LoginRequest request)
     {
-        var user = await _userRepository.GetByUsernameAsync(request.Username);
-        
-        // Always perform hash verification to prevent timing-based username enumeration
-        var hashToVerify = user?.PasswordHash ?? DummyHash;
-        var passwordValid = BCrypt.Net.BCrypt.Verify(request.Password, hashToVerify);
+        ApplicationUser? user = await _userRepository.GetByUsernameAsync(request.Username);
 
-        if (user == null || !passwordValid)
+        if (user == null || !await _userManager.CheckPasswordAsync(user, request.Password))
             throw new InvalidCredentialsException("Invalid credentials");
 
-        var token = await _jwt.GenerateTokenAsync(user!);
+        var token = await _jwt.GenerateTokenAsync(user);
 
         return new AuthResponse(token);
-    }}
+    }
+}
