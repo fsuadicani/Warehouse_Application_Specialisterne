@@ -1,7 +1,7 @@
 import FormModal from './FormModal.jsx';
 
 const quantityFields = [
-  { name: 'quantity', label: 'Quantity' },
+  { name: 'quantity', label: 'Quantity', validateAs: 'number' },
 ];
 
 function TransitQuantityModal({ onClose, productName }) {

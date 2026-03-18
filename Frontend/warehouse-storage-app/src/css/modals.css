@@ -98,6 +98,11 @@
     font-weight: 600;
 }
 
+.modal-field-error {
+    color: #c62828;
+    font-size: 0.9rem;
+}
+
 .modal-transit-header-container{
     height:50px;
     align-content: center;

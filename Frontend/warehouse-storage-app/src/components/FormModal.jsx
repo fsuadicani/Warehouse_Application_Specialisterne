@@ -37,9 +37,17 @@ function FormModal({
     }
 
     const nextErrors = fields.reduce((collectedErrors, field) => {
-      if (!String(values[field.name] ?? '').trim()) {
-        collectedErrors[field.name] = true;
+      const fieldValue = String(values[field.name] ?? '').trim();
+
+      if (!fieldValue) {
+        collectedErrors[field.name] = 'This field is required.';
+        return collectedErrors;
       }
+
+      if (field.validateAs === 'number' && Number.isNaN(Number(fieldValue))) {
+        collectedErrors[field.name] = 'This field must be a number.';
+      }
+
       return collectedErrors;
     }, {});
 
@@ -61,7 +69,9 @@ function FormModal({
       <div className="nested-modal-content">
         <h2>{title}</h2>
         {Object.keys(errors).length > 0 && (
-          <p className="modal-error-message">Please fill out all required fields.</p>
+          <p className="modal-error-message">
+            Please fill out all required fields and use numbers where required.
+          </p>
         )}
         {fields.map((field) => (
           <label key={field.name} className="modal-field">
@@ -84,8 +94,10 @@ function FormModal({
                 className={`modal-input${errors[field.name] ? ' modal-input-error' : ''}`}
                 value={values[field.name] ?? ''}
                 onChange={(event) => handleChange(field.name, event.target.value)}
+                inputMode={field.validateAs === 'number' ? 'decimal' : undefined}
               />
             )}
+            {errors[field.name] && <span className="modal-field-error">{errors[field.name]}</span>}
           </label>
         ))}
         <button type="button" className="modal-accept-button" onClick={handleSubmit}>

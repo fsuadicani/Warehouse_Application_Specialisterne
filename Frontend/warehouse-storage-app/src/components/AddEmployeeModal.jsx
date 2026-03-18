@@ -15,12 +15,14 @@ const employeeFields = [
 ];
 
 function AddEmployeeModal({ onClose, title = 'New Employee', submitLabel = 'Create', initialValues = {} }) {
+  const modalValues = { role: 'User', ...initialValues };
+
   return (
     <FormModal
       onClose={onClose}
       title={title}
       fields={employeeFields}
-      initialValues={initialValues}
+      initialValues={modalValues}
       submitLabel={submitLabel}
       validateRequired
     />

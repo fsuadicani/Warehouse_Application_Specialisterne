@@ -3,7 +3,7 @@ import FormModal from './FormModal.jsx';
 const productFields = [
   { name: 'name', label: 'Name' },
   { name: 'number', label: 'Number' },
-  { name: 'defaultPrice', label: 'Default Price' },
+  { name: 'defaultPrice', label: 'Default Price', validateAs: 'number' },
   { name: 'defaultCurrency', label: 'Default Currency' },
 ];
 
