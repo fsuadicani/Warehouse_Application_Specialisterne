@@ -14,14 +14,14 @@ namespace WarehouseStorage.Services.Repositories
         {
             _context = context;
         }
-        public async Task<Transit> Create(Transit transit)
+        public async Task<Transit> CreateAsync(Transit transit)
         {
                 Transit createdTransit = _context.Add(transit).Entity;
                 await _context.SaveChangesAsync();
                 return createdTransit;
         }
 
-        public async Task Update(Transit transit)
+        public async Task UpdateAsync(Transit transit)
         {
             if (transit.Id == null)
             {

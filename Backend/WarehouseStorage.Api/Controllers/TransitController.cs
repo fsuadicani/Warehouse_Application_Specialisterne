@@ -4,7 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WarehouseStorage.Domain.Models;
 using WarehouseStorage.DTOs.DataTransferObjects;
+using WarehouseStorage.Services.Factories;
+using WarehouseStorage.Services.Interfaces;
 using WarehouseStorage.Services.Repositories.Interfaces;
 
 namespace WarehouseStorage.Api.Controllers
@@ -13,17 +16,33 @@ namespace WarehouseStorage.Api.Controllers
     [Route("api/[controller]")]
     public class TransitController : ControllerBase
     {
-        public ITransitRepository _transitRepository { get; set; }
-        public TransitController(ITransitRepository transitRepository)
+        public ITransitService _transitService { get; set; }
+        public TransitController(ITransitService transitService)
         {
-            _transitRepository = transitRepository;
+            _transitService = transitService;
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult<TransitDTO> StartTransit(TransitDTO request)
+        public async Task<IActionResult> StartTransit([FromBody] TransitDTO request)
         {
-            
+            try
+            {
+                Transit transit = ModelFactory.CreateTransit(request);
+                foreach (StockDTO stockDTO in request.Stocks)
+                {
+                    Stock stock = ModelFactory.CreateStock(stockDTO);
+                    transit.Location.Stocks.Append(stock);
+                }
+                await _transitService.StartTransitToDestination(transit);
+                
+                return Accepted();
+            }
+            catch (System.Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+
         }
     }
 }

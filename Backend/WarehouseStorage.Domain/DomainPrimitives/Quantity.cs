@@ -4,7 +4,7 @@ namespace WarehouseStorage.Domain.DomainPrimitives
 {
     public class Quantity
     {
-        public readonly int value;
+        public int value {get; private set;}
 
         public Quantity(int quantity)
         {
@@ -20,6 +20,12 @@ namespace WarehouseStorage.Domain.DomainPrimitives
 
             if (input > 5000)
                 throw new ArgumentException("Quantity cannot exceed 5000.");
+        }
+
+        public void ChangeQuantity(int delta)
+        {
+            value = value + delta;
+            Validate(value);
         }
     }
 }

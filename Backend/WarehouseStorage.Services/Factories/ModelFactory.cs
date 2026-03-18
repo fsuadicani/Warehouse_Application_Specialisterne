@@ -49,7 +49,7 @@ namespace WarehouseStorage.Services.Factories
             var transitId = (Guid?)null;
             var deliveryStatus = Enum.TryParse<DeliveryStatus>(transit.DeliveryStatus, ignoreCase: true, out var parsed)
                 ? parsed
-                : DeliveryStatus.WAITING;
+                : DeliveryStatus.CREATED;
 
             return new Transit(
                 DomainFactory.CreateTransitNumber(transit.TransitNumber),
@@ -57,7 +57,13 @@ namespace WarehouseStorage.Services.Factories
                 DomainFactory.CreateCoordinate(transit.GpsLocation),
                 DomainFactory.CreateCompany(transit.Distributor),
                 deliveryStatus,
-                transitId);
+                transitId)
+            {
+                Location = new Location()
+                {
+                    Address = null
+                }
+            };
         }
 
 

@@ -8,7 +8,7 @@ namespace WarehouseStorage.Services.Repositories.Interfaces
 {
     public interface ITransitRepository
     {
-        Task<Transit> Create(Transit transit);
-        Task Update(Transit transit);
+        Task<Transit> CreateAsync(Transit transit);
+        Task UpdateAsync(Transit transit);
     }
 }

@@ -13,6 +13,9 @@ public class WarehouseDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<Transit> Transits { get; set; }
 
+    public DbSet<Stock> Stocks { get; set; }
+    public DbSet<Location> Locations { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder); // IMPORTANT

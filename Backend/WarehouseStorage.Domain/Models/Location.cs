@@ -13,6 +13,6 @@ namespace WarehouseStorage.Domain.Models
 
         public IEnumerable<Stock?> Stocks { get; set; }
 
-        public Address Address { get; set; }
+        public Address? Address { get; set; }
     }
 }

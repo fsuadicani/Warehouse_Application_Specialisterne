@@ -29,5 +29,10 @@ namespace WarehouseStorage.Domain.Models
             LocalPrice = price;
             LocalCurrency = currency;
         }
+
+        public void ChangeQuantityBy(int delta)
+        {
+            Quantity.ChangeQuantity(delta);
+        }
     }
 }
