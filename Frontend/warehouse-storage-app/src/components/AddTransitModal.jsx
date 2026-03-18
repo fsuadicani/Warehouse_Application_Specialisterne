@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import CitySelector from './CitySelector.jsx';
 import DataTable from './DataTable.jsx';
 import Modal from './Modal.jsx';
 import TransitQuantityModal from './TransitQuantityModal.jsx';
 import { transitGroups } from '../testdata/tableTestData.js';
+import WarehouseSelector from './WarehouseSelector.jsx';
 
 function AddTransitModal({ onClose }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -50,14 +50,14 @@ function AddTransitModal({ onClose }) {
                 <div className="modal-transit-button-container-left">
                   {
                       (index === 0) &&
-                      <CitySelector label={'From'} />
+                      <WarehouseSelector label={'From'} />
                   }
                 </div>
 
                 <div className="modal-transit-button-container-right">
                   {
                       (index === 0) &&
-                      <CitySelector label={'To'} />
+                      <WarehouseSelector label={'To'} />
                   }
                 </div>
 

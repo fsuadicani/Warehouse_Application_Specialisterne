@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import AddTransitModal from '../components/AddTransitModal.jsx';
-import CitySelector from '../components/CitySelector.jsx';
 import DataTable from '../components/DataTable.jsx';
 import EditWarehouseModal from '../components/EditWarehouseModal.jsx';
 import '../css/ui.css';
 import { stocks } from '../testdata/tableTestData.js';
+import WarehouseSelector from '../components/WarehouseSelector.jsx';
 
 function WarehousePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,7 +33,7 @@ function WarehousePage() {
             </div>
 
             <div className="right-button-container">
-                <CitySelector label="Vælg en by:" className="page-selector-form" />
+                <WarehouseSelector label="Choose a Warehouse:" className="page-selector-form" />
             </div>
 
         </div>
