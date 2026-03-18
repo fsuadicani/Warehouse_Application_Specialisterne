@@ -108,5 +108,17 @@ namespace WarehouseStorage.Services.Factories
 
             return createdWarehouse;
         }
+
+        public static WarehouseDTO CreateWarehouseDTO(Warehouse warehouse)
+        {
+            return new WarehouseDTO
+            {
+                Id = warehouse.Id,
+                City = warehouse.Location.Address.City.value,
+                Street = warehouse.Location.Address.Street.value,
+                StreetNumber = warehouse.Location.Address.StreetNumber.value,
+                ZipCode = warehouse.Location.Address.ZipCode.value
+            };
+        }
     }
 }
