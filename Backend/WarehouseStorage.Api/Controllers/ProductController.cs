@@ -7,6 +7,7 @@ namespace WarehouseStorage.Api.Controllers
     [Route("api/[controller]")]
     public class ProductController(ProductRepository productRepository) : ControllerBase
     {
+        private const int MaxTake = 1000;
         private readonly ProductRepository _productRepository = productRepository;
 
         [HttpPost("add")]
@@ -21,34 +22,38 @@ namespace WarehouseStorage.Api.Controllers
                 await _productRepository.Add(product);
                 return StatusCode(201, product);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return StatusCode(500, $"Internal server error: {e.Message}");
-            }
-        }
+                // Log the exception here: _logger.LogError(e, "Failed to add product");
+                return StatusCode(500, "Internal server error occurred while adding the product.");
+            }        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Read(Guid id)
         {
-            var product = await _productRepository.GetById(id);
-            if (product == null)
-            {
-                return NotFound();
-            }
             try
             {
+                var product = await _productRepository.GetById(id);
+                if (product == null)
+                {
+                    return NotFound();
+                }
                 return Ok(product);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return StatusCode(500, $"Internal server error: {e.Message}");
+                return StatusCode(500, "Internal server error occurred while retrieving the product.");
             }
         }
-
 
         [HttpGet("filter")]
         public async Task<IActionResult> ReadAll(int skip = 0, int take = 100)
         {
+            if (take < 1 || take > MaxTake)
+            {
+                return BadRequest($"Parameter 'take' must be between 1 and {MaxTake}.");
+            }
+
             try
             {
                 var products = await _productRepository.GetAll(skip, take);
@@ -64,14 +69,23 @@ namespace WarehouseStorage.Api.Controllers
         [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] Product product)
         {
-            if (product == null || product.Id == Guid.Empty)
+            if (product == null || !product.Id.HasValue || product.Id.Value == Guid.Empty)
             {
                 return BadRequest("Product cannot be null and must have a valid ID.");
             }
+
+            var productId = product.Id.Value;
+
             try
             {
+                var existingProduct = await _productRepository.GetById(productId);
+                if (existingProduct == null)
+                {
+                    return NotFound();
+                }
+
                 await _productRepository.Update(product);
-                return StatusCode(200, product);
+                return Ok(product);
             }
             catch (Exception e)
             {
@@ -89,6 +103,12 @@ namespace WarehouseStorage.Api.Controllers
             }
             try
             {
+                var product = await _productRepository.GetById(id);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+
                 await _productRepository.Delete(id);
                 return NoContent();
             }
