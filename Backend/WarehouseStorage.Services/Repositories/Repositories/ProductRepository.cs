@@ -35,6 +35,11 @@ namespace WarehouseStorage.Services.Repositories.Repositories
 
         public async Task<Product> Add(Product product)
         {
+            if (product == null)
+            {
+                throw new ArgumentNullException(nameof(product));
+            }
+            
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
             return product;

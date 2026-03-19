@@ -30,6 +30,11 @@ namespace WarehouseStorage.Services.Repositories.Repositories
 
         public async Task<Warehouse> Add(Warehouse warehouse)
         {
+            if (warehouse == null)
+            {
+                throw new ArgumentNullException(nameof(warehouse));
+            }
+            
             _context.Warehouses.Add(warehouse);
             await _context.SaveChangesAsync();
             return warehouse;
