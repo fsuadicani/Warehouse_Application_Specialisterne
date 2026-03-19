@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using WarehouseStorage.DTOs.DataTransferObjects;
 using WarehouseStorage.Services.Factories;
 using WarehouseStorage.Services.Repositories.Interfaces;
-using WarehouseStorage.Services.Repositories.Repositories;
 
 namespace WarehouseStorage.Api.Controllers
 {
@@ -11,7 +10,7 @@ namespace WarehouseStorage.Api.Controllers
     public class ProductController(IProductRepository productRepository) : ControllerBase
     {
         private const int MaxTake = 1000;
-        private readonly ProductRepository _productRepository = (ProductRepository)productRepository;
+        private readonly IProductRepository _productRepository = (IProductRepository)productRepository;
         
 
         [HttpPost("add")]

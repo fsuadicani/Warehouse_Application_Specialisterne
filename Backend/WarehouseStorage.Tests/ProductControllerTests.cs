@@ -209,7 +209,7 @@ namespace WarehouseStorage.Tests
             productDto.Name = "Updated Name";
 
             // Act
-            var result = await controller.Update(productDto.Id.Value, productDto) as OkObjectResult;
+            var result = await controller.Update(productDto) as OkObjectResult;
 
             // Assert
             Assert.NotNull(result);
@@ -232,7 +232,7 @@ namespace WarehouseStorage.Tests
             var controller = new ProductController(repo);
 
             // Act
-            var result = await controller.Update(Guid.NewGuid(), null) as BadRequestObjectResult;
+            var result = await controller.Update(null) as BadRequestObjectResult;
 
             // Assert
             Assert.NotNull(result);
@@ -255,7 +255,7 @@ namespace WarehouseStorage.Tests
             var productDto = ModelFactory.CreateProductDTO(GenerateFakeProduct());
 
             // Act
-            var result = await controller.Update(Guid.NewGuid(), productDto) as NotFoundResult;
+            var result = await controller.Update(productDto) as NotFoundResult;
 
             // Assert
             Assert.NotNull(result);
@@ -264,7 +264,7 @@ namespace WarehouseStorage.Tests
 
 
         [Fact]
-        public async Task Delete_ExistingProduct_ReturnsOk()
+        public async Task Delete_ExistingProduct_ReturnsNoContent()
         {
             // Arrange
             var options = new DbContextOptionsBuilder<WarehouseDbContext>()
@@ -285,7 +285,6 @@ namespace WarehouseStorage.Tests
             Assert.NotNull(result);
             Assert.Equal(204, result.StatusCode);
         }
-
 
         [Fact]
         public async Task Delete_NonExistingProduct_ReturnsNotFound()
