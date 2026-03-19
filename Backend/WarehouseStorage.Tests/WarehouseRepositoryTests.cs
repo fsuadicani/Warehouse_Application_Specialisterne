@@ -68,13 +68,15 @@ namespace WarehouseStorage.Tests
 
             // Act
             var newCity = new City("Updated City");
-            warehouse.Location.Address = new Address(
-                newCity,
-                warehouse.Location.Address.Street,
-                warehouse.Location.Address.StreetNumber,
-                warehouse.Location.Address.ZipCode,
-                warehouse.Location.Address.Id
-            );
+            // Update the tracked Address instance in-place to avoid EF Core tracking conflicts.
+            var address = warehouse.Location.Address;
+            var cityProperty = typeof(Address).GetProperty("City", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public);
+            if (cityProperty == null)
+            {
+                throw new InvalidOperationException("Cannot find City property on Address.");
+            }
+            cityProperty.SetValue(address, newCity);
+
             await repo.Update(warehouse);
             var updated = await repo.GetById(warehouse.Id.Value);
 

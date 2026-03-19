@@ -24,7 +24,8 @@ namespace WarehouseStorage.Tests
             return new Product(
                 new ProductName(faker.Commerce.ProductName()),
                 new ProductNumber(faker.Random.AlphaNumeric(12)),
-                new Price(faker.Random.Decimal(1, 9999)),
+                // Use an integer price to satisfy the domain's 2-decimal-place validation
+                new Price(faker.Random.Int(1, 9999)),
                 new Currency("USD"),
                 Guid.NewGuid()
             );

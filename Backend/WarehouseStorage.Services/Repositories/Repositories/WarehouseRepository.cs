@@ -42,10 +42,30 @@ namespace WarehouseStorage.Services.Repositories.Repositories
 
         public async Task Update(Warehouse warehouse)
         {
+            if (warehouse == null)
+            {
+                throw new ArgumentNullException(nameof(warehouse));
+            }
+
             if (warehouse.Id == Guid.Empty)
             {
                 throw new ArgumentException("Warehouse ID cannot be empty for update.");
             }
+
+            // Ensure we don't track multiple instances of the same Address (or other owned entities) during updates.
+            // This can happen when a caller replaces a nested entity instance with the same key value.
+            var address = warehouse.Location?.Address;
+            if (address != null)
+            {
+                var trackedAddress = _context.ChangeTracker.Entries<Address>()
+                    .FirstOrDefault(e => e.Entity.Id == address.Id && !ReferenceEquals(e.Entity, address));
+
+                if (trackedAddress != null)
+                {
+                    trackedAddress.State = EntityState.Detached;
+                }
+            }
+
             _context.Warehouses.Update(warehouse);
             await _context.SaveChangesAsync();
         }
