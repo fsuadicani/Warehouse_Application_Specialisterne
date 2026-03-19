@@ -68,5 +68,42 @@ namespace WarehouseStorage.Tests
             Assert.NotNull(updated);
             Assert.Equal("Updated Name", updated.Name.value);
         }
+
+
+        [Fact]
+        public async Task GetAll_Should_Return_All_Products()
+        {
+            // Arrange
+            var context = CreateInMemoryDbContext();
+            var repo = new ProductRepository(context);
+            var products = Enumerable.Range(0, 5).Select(_ => GenerateFakeProduct()).ToArray();
+            foreach (var product in products)
+            {
+                await repo.Add(product);
+            }
+
+            // Act
+            var retrieved = await repo.GetAll();
+
+            // Assert
+            Assert.Equal(5, retrieved.Length);
+        }
+
+        [Fact]
+        public async Task Delete_Should_Remove_Product()
+        {
+            // Arrange
+            var context = CreateInMemoryDbContext();
+            var repo = new ProductRepository(context);
+            var product = GenerateFakeProduct();
+            await repo.Add(product);
+
+            // Act
+            await repo.Delete(product.Id.Value);
+            var deleted = await repo.GetById(product.Id.Value);
+
+            // Assert
+            Assert.Null(deleted);
+        }
     }
 }
