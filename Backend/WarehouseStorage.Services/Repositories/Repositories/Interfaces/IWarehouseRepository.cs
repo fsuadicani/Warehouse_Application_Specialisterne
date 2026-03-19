@@ -2,7 +2,7 @@ using WarehouseStorage.Domain.Models;
 
 namespace WarehouseStorage.Services.Repositories.Interfaces
 {
-    public interface IWarehouse
+    public interface IWarehouseRepository
     {
         Task<Warehouse?> GetById(Guid id);
         Task<Warehouse[]> GetAll(int skip = 0, int take = 100);

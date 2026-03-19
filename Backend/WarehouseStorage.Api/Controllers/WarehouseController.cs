@@ -7,10 +7,10 @@ namespace WarehouseStorage.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class WarehouseController(IWarehouse warehouseRepository) : ControllerBase
+    public class WarehouseController(IWarehouseRepository warehouseRepository) : ControllerBase
     {
         private const int MaxTake = 1000;
-        private readonly IWarehouse _warehouseRepository = warehouseRepository;
+        private readonly IWarehouseRepository _warehouseRepository = warehouseRepository;
 
         [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] WarehouseDTO warehouse)
@@ -26,10 +26,10 @@ namespace WarehouseStorage.Api.Controllers
                 WarehouseDTO warehouseDTO = ModelFactory.CreateWarehouseDTO(createdWarehouse);
                 return StatusCode(201, warehouseDTO);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 // Log the exception here: _logger.LogError(e, "Failed to add warehouse");
-                return StatusCode(500, "Internal server error occurred while adding the warehouse.");
+                return StatusCode(500, $"Internal server error occurred while adding the warehouse. {e.Message}");
             }
         }
 

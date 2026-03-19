@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using WarehouseStorage.Domain.Models;
 using WarehouseStorage.Services.Repositories.Interfaces;
 
-public class WarehouseRepository : IWarehouse
+public class WarehouseRepository : IWarehouseRepository
 {
     private readonly WarehouseDbContext _context;
 

@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Lucida Sans", sans-serif;
+    font-size: medium;
+}
+
+.content-container {
+    grid-area: main;
+    margin-left: 10%;
+    margin-right: 10%;
+    min-height: 92.5vh;
+}
+.header-container {
+    height: 100px;
+    align-content: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    align-content: center;
+}
+.left-button-container {
+}
+.right-button-container {
+}
+
+.content > p {
+    margin-bottom: 7px;
+}
+
+.input {
+    width: 100%;
+    padding: 10px 12px;
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid #999999;
+}
+
+.login-submit {
+    width: 100%;
+    padding: 12px;
+    line-height: 1;
+}

@@ -26,8 +26,9 @@ public static class DependencyInjection
         services.AddScoped<ITransitRepository, TransitRepository>();
         services.AddScoped<IStockRepository, StockRepository>();
         services.AddScoped<ITransitService, TransitService>();
-        services.AddScoped<IWarehouse, WarehouseRepository>();
-        services.AddScoped<IProductRepository, ProductRepository>();     
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IWarehouseRepository, WarehouseRepository>();
+
 
         return services;
     }

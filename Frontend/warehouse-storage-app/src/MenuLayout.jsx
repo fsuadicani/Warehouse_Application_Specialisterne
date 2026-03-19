@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import './css/warehouse.css';
+import './css/ui.css';
 
 function MenuLayout() {
   return (
@@ -9,14 +9,14 @@ function MenuLayout() {
           <NavLink to="/products">Products</NavLink>
           <NavLink to="/warehouses">Warehouses</NavLink>
           <NavLink to="/transits">Transits</NavLink>
-          <NavLink to="/employees">Manage Employees</NavLink>
+          <NavLink to="/employees">Admin</NavLink>
         </div>
         <div>
           <NavLink to="/login">Log Out</NavLink>
         </div>
       </div>
 
-      <div className="content">
+      <div className="content-container">
         <Outlet />
       </div>
     </div>

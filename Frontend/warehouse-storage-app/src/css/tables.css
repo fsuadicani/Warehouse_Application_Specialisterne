@@ -1,0 +1,108 @@
+.tablecontainer {
+    overflow-x: auto;
+}
+
+.admin-table-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #eaeae9;
+}
+
+table,
+th,
+td
+{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-size: medium;
+}
+
+th {
+    background-color: #33b5e5;
+}
+
+.row-actions {
+    white-space: nowrap;
+    text-align: right;
+    width: 1%;
+}
+
+.row-actions button {
+    margin-left: 8px;
+    margin-right: 0;
+}
+
+.row-actions button:first-child {
+    margin-left: 0;
+}
+
+.row-actions-header {
+    text-align: center;
+    width: 1%;
+    white-space: nowrap;
+}
+
+.modal-table {
+    width: 100%;
+    color: #000000;
+}
+
+.modal-table th,
+.modal-table td {
+    color: #000000;
+}
+
+.modal-table-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 16px;
+    padding: 20px;
+    overflow: auto;
+    min-width: 400px;
+}
+
+.modal-table-section {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.modal-table-section h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.modal-table-scroll {
+    overflow: auto;
+    min-height: 0;
+    max-height: 60vh;
+}
+
+@media (max-width: 1100px) {
+    .admin-table-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-table-grid {
+        grid-template-columns: 1fr;
+    }
+
+    table,
+    th,
+    td
+    {
+
+        font-size: small;
+
+    }
+
+}
