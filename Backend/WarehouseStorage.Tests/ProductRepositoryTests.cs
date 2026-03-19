@@ -44,6 +44,7 @@ namespace WarehouseStorage.Tests
 
             // Assert
             Assert.NotNull(retrieved);
+            Assert.Equal(product.Id, retrieved.Id);
             Assert.Equal(product.Name.value, retrieved.Name.value);
             Assert.Equal(product.Number.value, retrieved.Number.value);
             Assert.Equal(product.DefaultPrice.value, retrieved.DefaultPrice.value);
