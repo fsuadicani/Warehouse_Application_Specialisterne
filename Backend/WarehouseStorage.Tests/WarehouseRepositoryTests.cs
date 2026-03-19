@@ -122,6 +122,44 @@ namespace WarehouseStorage.Tests
             Assert.Null(retrieved);
         }
 
+        [Fact]
+        public async Task Add_NullWarehouse_ThrowsArgumentNullException()
+        {
+            using var context = CreateInMemoryDbContext();
+            var repo = new WarehouseRepository(context);
+
+            await Assert.ThrowsAsync<ArgumentNullException>(() => repo.Add(null!));
+        }
+
+        [Fact]
+        public async Task Update_NullWarehouse_ThrowsArgumentNullException()
+        {
+            using var context = CreateInMemoryDbContext();
+            var repo = new WarehouseRepository(context);
+
+            await Assert.ThrowsAsync<ArgumentNullException>(() => repo.Update(null!));
+        }
+
+        [Fact]
+        public async Task Update_EmptyId_ThrowsArgumentException()
+        {
+            using var context = CreateInMemoryDbContext();
+            var repo = new WarehouseRepository(context);
+            var warehouse = GenerateFakeWarehouse();
+            var warehouseWithEmptyId = new Warehouse(Guid.Empty) { Location = warehouse.Location };
+
+            await Assert.ThrowsAsync<ArgumentException>(() => repo.Update(warehouseWithEmptyId));
+        }
+
+        [Fact]
+        public async Task Delete_NonExistingWarehouse_ThrowsKeyNotFoundException()
+        {
+            using var context = CreateInMemoryDbContext();
+            var repo = new WarehouseRepository(context);
+
+            await Assert.ThrowsAsync<KeyNotFoundException>(() => repo.Delete(Guid.NewGuid()));
+        }
+
     }
 }
         

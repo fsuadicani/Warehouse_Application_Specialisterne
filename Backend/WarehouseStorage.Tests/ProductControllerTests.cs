@@ -3,6 +3,7 @@ using WarehouseStorage.Services.Repositories.Repositories;
 using WarehouseStorage.Api.Controllers;
 using Microsoft.EntityFrameworkCore;
 using WarehouseStorage.Services.Factories;
+using WarehouseStorage.DTOs.DataTransferObjects;
 using WarehouseStorage.Domain.Models;
 using WarehouseStorage.Domain.DomainPrimitives;
 using Bogus;
@@ -158,6 +159,107 @@ namespace WarehouseStorage.Tests
             // Assert
             Assert.NotNull(result);
             Assert.Equal(400, result.StatusCode);
+        }
+
+
+        [Fact]
+        public async Task ReadAll_ValidRequest_ReturnsProducts()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<WarehouseDbContext>()
+                .UseInMemoryDatabase(databaseName: "Test_ReadAll_ValidRequest_ReturnsProducts")
+                .Options;
+
+            using var context = new WarehouseDbContext(options);
+            var repo = new ProductRepository(context);
+            var controller = new ProductController(repo);
+
+            for (int i = 0; i < 3; i++)
+            {
+                await repo.Add(GenerateFakeProduct());
+            }
+
+            // Act
+            var result = await controller.ReadAll() as OkObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(200, result.StatusCode);
+            var items = Assert.IsType<ProductDTO[]>(result.Value);
+            Assert.Equal(3, items.Length);
+        }
+
+
+        [Fact]
+        public async Task Update_ExistingProduct_ReturnsOk()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<WarehouseDbContext>()
+                .UseInMemoryDatabase(databaseName: "Test_Update_ExistingProduct_ReturnsOk")
+                .Options;
+
+            using var context = new WarehouseDbContext(options);
+            var repo = new ProductRepository(context);
+            var controller = new ProductController(repo);
+
+            var product = GenerateFakeProduct();
+            await repo.Add(product);
+
+            var productDto = ModelFactory.CreateProductDTO(product);
+            productDto.Name = "Updated Name";
+
+            // Act
+            var result = await controller.Update(productDto.Id.Value, productDto) as OkObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(200, result.StatusCode);
+            var updated = Assert.IsType<ProductDTO>(result.Value);
+            Assert.Equal("Updated Name", updated.Name);
+        }
+
+
+        [Fact]
+        public async Task Update_NullProduct_ReturnsBadRequest()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<WarehouseDbContext>()
+                .UseInMemoryDatabase(databaseName: "Test_Update_NullProduct_ReturnsBadRequest")
+                .Options;
+
+            using var context = new WarehouseDbContext(options);
+            var repo = new ProductRepository(context);
+            var controller = new ProductController(repo);
+
+            // Act
+            var result = await controller.Update(Guid.NewGuid(), null) as BadRequestObjectResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(400, result.StatusCode);
+        }
+
+
+        [Fact]
+        public async Task Update_NonExistingProduct_ReturnsNotFound()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<WarehouseDbContext>()
+                .UseInMemoryDatabase(databaseName: "Test_Update_NonExistingProduct_ReturnsNotFound")
+                .Options;
+
+            using var context = new WarehouseDbContext(options);
+            var repo = new ProductRepository(context);
+            var controller = new ProductController(repo);
+
+            var productDto = ModelFactory.CreateProductDTO(GenerateFakeProduct());
+
+            // Act
+            var result = await controller.Update(Guid.NewGuid(), productDto) as NotFoundResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(404, result.StatusCode);
         }
 
 

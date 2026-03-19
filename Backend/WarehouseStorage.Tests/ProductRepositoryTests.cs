@@ -107,5 +107,43 @@ namespace WarehouseStorage.Tests
             // Assert
             Assert.Null(deleted);
         }
+
+        [Fact]
+        public async Task Add_NullProduct_ThrowsArgumentNullException()
+        {
+            using var context = CreateInMemoryDbContext();
+            var repo = new ProductRepository(context);
+
+            await Assert.ThrowsAsync<ArgumentNullException>(() => repo.Add(null!));
+        }
+
+        [Fact]
+        public async Task Update_NullProduct_ThrowsArgumentNullException()
+        {
+            using var context = CreateInMemoryDbContext();
+            var repo = new ProductRepository(context);
+
+            await Assert.ThrowsAsync<ArgumentNullException>(() => repo.Update(null!));
+        }
+
+        [Fact]
+        public async Task Update_EmptyId_ThrowsArgumentException()
+        {
+            using var context = CreateInMemoryDbContext();
+            var repo = new ProductRepository(context);
+            var product = GenerateFakeProduct();
+            var productWithEmptyId = new Product(product.Name, product.Number, product.DefaultPrice, product.DefaultCurrency, Guid.Empty);
+
+            await Assert.ThrowsAsync<ArgumentException>(() => repo.Update(productWithEmptyId));
+        }
+
+        [Fact]
+        public async Task Delete_NonExistingProduct_DoesNotThrow()
+        {
+            using var context = CreateInMemoryDbContext();
+            var repo = new ProductRepository(context);
+
+            await repo.Delete(Guid.NewGuid());
+        }
     }
 }
