@@ -4,7 +4,7 @@ using WarehouseStorage.Services.Repositories.Interfaces;
 
 namespace WarehouseStorage.Services.Repositories.Repositories
 {
-    public class WarehouseRepository : IWarehouse
+    public class WarehouseRepository : IWarehouseRepository
     {
         private readonly WarehouseDbContext _context;
 

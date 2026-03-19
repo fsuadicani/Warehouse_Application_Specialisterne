@@ -49,7 +49,7 @@ namespace WarehouseStorage.Tests
 
             // Act
             await repo.Add(warehouse);
-            var retrieved = await repo.GetById(warehouse.Id.Value);
+            var retrieved = await repo.GetById(warehouse.Id!.Value);
 
             // Assert
             Assert.NotNull(retrieved);
