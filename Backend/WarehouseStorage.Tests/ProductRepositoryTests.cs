@@ -1,15 +1,72 @@
+
+using Bogus;
+using Microsoft.EntityFrameworkCore;
+using WarehouseStorage.Domain.Models;
+using WarehouseStorage.Domain.DomainPrimitives;
 using WarehouseStorage.Services.Repositories.Repositories;
+using Xunit;
 
 namespace WarehouseStorage.Tests
-{   
+{
     public class ProductRepositoryTests
     {
-        private readonly WarehouseDbContext _context;
- 
-        
-        public ProductRepositoryTests(WarehouseDbContext context)
+        private static WarehouseDbContext CreateInMemoryDbContext()
         {
-            _context = context;
+            var options = new DbContextOptionsBuilder<WarehouseDbContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+            return new WarehouseDbContext(options);
+        }
+
+        private static Product GenerateFakeProduct()
+        {
+            var faker = new Faker();
+            return new Product(
+                new ProductName(faker.Commerce.ProductName()),
+                new ProductNumber(faker.Random.AlphaNumeric(12)),
+                new Price(faker.Random.Decimal(1, 9999)),
+                new Currency("USD"),
+                Guid.NewGuid()
+            );
+        }
+
+        [Fact]
+        public async Task AddProduct_Should_Save_And_Retrieve_Product()
+        {
+            // Arrange
+            var context = CreateInMemoryDbContext();
+            var repo = new ProductRepository(context);
+            var product = GenerateFakeProduct();
+
+            // Act
+            await repo.Add(product);
+            var retrieved = await repo.GetById(product.Id.Value);
+
+            // Assert
+            Assert.NotNull(retrieved);
+            Assert.Equal(product.Name.value, retrieved.Name.value);
+            Assert.Equal(product.Number.value, retrieved.Number.value);
+            Assert.Equal(product.DefaultPrice.value, retrieved.DefaultPrice.value);
+            Assert.Equal(product.DefaultCurrency.value, retrieved.DefaultCurrency.value);
+        }
+
+        [Fact]
+        public async Task UpdateProduct_Should_Modify_Existing_Product()
+        {
+            // Arrange
+            var context = CreateInMemoryDbContext();
+            var repo = new ProductRepository(context);
+            var product = GenerateFakeProduct();
+            await repo.Add(product);
+
+            // Act
+            product.Update(new ProductName("Updated Name"), product.Number, product.DefaultPrice, product.DefaultCurrency);
+            await repo.Update(product);
+            var updated = await repo.GetById(product.Id.Value);
+
+            // Assert
+            Assert.NotNull(updated);
+            Assert.Equal("Updated Name", updated.Name.value);
         }
     }
 }

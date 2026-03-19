@@ -27,5 +27,13 @@ namespace WarehouseStorage.Domain.Models
             DefaultPrice = price;
             DefaultCurrency = currency;
         }
+
+        public void Update(ProductName name, ProductNumber number, Price price, Currency currency)
+        {
+            Name = name;
+            Number = number;
+            DefaultPrice = price;
+            DefaultCurrency = currency;
+        }
     }
 }
