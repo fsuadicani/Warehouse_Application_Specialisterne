@@ -61,10 +61,6 @@ dotnet add WarehouseStorage.Api package Microsoft.AspNetCore.Authentication.JwtB
 dotnet add WarehouseStorage.Domain package Microsoft.AspNet.Identity.EntityFramework
 dotnet add WarehouseStorage.Services package Bcrypt.Net-Next
 
-# AutoMapper for mapping Domain <-> DTOs
-dotnet add WarehouseStorage.Services package AutoMapper --version 16.1.0
-dotnet add WarehouseStorage.Api package AutoMapper.Extensions.Microsoft.DependencyInjection --version 16.1.0
-
 # FluentValidation (optional but recommended)
 dotnet add WarehouseStorage.Services package FluentValidation
 dotnet add WarehouseStorage.Api package FluentValidation.AspNetCore
