@@ -13,13 +13,19 @@ public class WarehouseRepository : IWarehouseRepository
 
     public async Task<Warehouse?> GetById(Guid id)
     {
-        return await _context.Warehouses.FindAsync(id);
+        return await _context.Warehouses
+            .AsNoTracking()
+            .Include(warehouse => warehouse.Location)
+            .ThenInclude(location => location.Address)
+            .FirstOrDefaultAsync(warehouse => warehouse.Id == id);
     }
 
     public async Task<Warehouse[]> GetAll(int skip = 0, int take = 100)
     {
       return await _context.Warehouses
             .AsNoTracking()
+            .Include(warehouse => warehouse.Location)
+            .ThenInclude(location => location.Address)
             .Skip(skip)
             .Take(take)
             .ToArrayAsync();

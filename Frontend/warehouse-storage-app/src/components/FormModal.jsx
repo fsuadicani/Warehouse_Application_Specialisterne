@@ -11,14 +11,18 @@ function FormModal({
   overlayClassName = '',
   closeLabel = 'Close modal',
   validateRequired = false,
+  onSubmit,
 }) {
   const [values, setValues] = useState(
     Object.fromEntries(fields.map((field) => [field.name, initialValues[field.name] ?? ''])),
   );
   const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (fieldName, fieldValue) => {
     setValues((currentValues) => ({ ...currentValues, [fieldName]: fieldValue }));
+    setSubmitError('');
     setErrors((currentErrors) => {
       if (!currentErrors[fieldName]) {
         return currentErrors;
@@ -30,7 +34,7 @@ function FormModal({
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!validateRequired) {
       onClose();
       return;
@@ -56,7 +60,25 @@ function FormModal({
       return;
     }
 
-    onClose();
+    if (!onSubmit) {
+      onClose();
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      setSubmitError('');
+      await onSubmit(values);
+      onClose();
+    } catch (error) {
+      if (error instanceof Error) {
+        setSubmitError(error.message);
+      } else {
+        setSubmitError('Unable to submit the form.');
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -73,6 +95,7 @@ function FormModal({
             Please fill out all required fields and use numbers where required.
           </p>
         )}
+        {submitError && <p className="modal-error-message">{submitError}</p>}
         {fields.map((field) => (
           <label key={field.name} className="modal-field">
             <span>{field.label}</span>
@@ -95,13 +118,20 @@ function FormModal({
                 value={values[field.name] ?? ''}
                 onChange={(event) => handleChange(field.name, event.target.value)}
                 inputMode={field.validateAs === 'number' ? 'decimal' : undefined}
+                step={field.step}
+                min={field.min}
               />
             )}
             {errors[field.name] && <span className="modal-field-error">{errors[field.name]}</span>}
           </label>
         ))}
-        <button type="button" className="modal-accept-button" onClick={handleSubmit}>
-          {submitLabel}
+        <button
+          type="button"
+          className="modal-accept-button"
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Saving...' : submitLabel}
         </button>
       </div>
     </Modal>

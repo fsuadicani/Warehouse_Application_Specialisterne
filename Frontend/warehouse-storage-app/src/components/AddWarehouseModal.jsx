@@ -4,10 +4,16 @@ const warehouseFields = [
   { name: 'city', label: 'City' },
   { name: 'zipCode', label: 'ZIP Code', validateAs: 'number' },
   { name: 'street', label: 'Street' },
-  { name: 'number', label: 'Number', validateAs: 'number' },
+  { name: 'streetNumber', label: 'Number', validateAs: 'number' },
 ];
 
-function AddWarehouseModal({ onClose, title = 'New Warehouse', submitLabel = 'Create', initialValues = {} }) {
+function AddWarehouseModal({
+  onClose,
+  title = 'New Warehouse',
+  submitLabel = 'Create',
+  initialValues = {},
+  onSubmit,
+}) {
   return (
     <FormModal
       onClose={onClose}
@@ -16,6 +22,7 @@ function AddWarehouseModal({ onClose, title = 'New Warehouse', submitLabel = 'Cr
       initialValues={initialValues}
       submitLabel={submitLabel}
       validateRequired
+      onSubmit={onSubmit}
     />
   );
 }
