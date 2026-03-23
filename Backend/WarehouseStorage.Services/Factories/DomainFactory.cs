@@ -50,6 +50,11 @@ namespace WarehouseStorage.Services.Factories
             return new ProductName(productname);
         }
 
+        public static string CreateProductName(ProductName name)
+        {
+            return name.value;
+        }
+
         public static ProductNumber CreateProductNumber(string productnumber)
         {
             return new ProductNumber(productnumber);

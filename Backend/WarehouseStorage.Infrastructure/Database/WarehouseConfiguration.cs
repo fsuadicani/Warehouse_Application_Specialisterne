@@ -13,7 +13,8 @@ namespace WarehouseStorage.Infrastructure.Database
     {
         public void Configure(EntityTypeBuilder<Warehouse> builder)
         {
-            builder.HasOne(l => l.Location);
+            builder.HasOne(l => l.Location)
+                .WithMany();
         }
     }
 }

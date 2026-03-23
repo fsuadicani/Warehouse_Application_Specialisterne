@@ -15,19 +15,19 @@ namespace WarehouseStorage.Domain.Models
         public PickUpCode PickUpCode { get; private set;}
         public Coordinates GpsLocation { get; private set;}
         public CompanyName Distributor { get; private set;}
-        public DeliveryStatus DeliveryStatus { get; private set;}
+        public DeliveryStatus DeliveryStatus { get; set;}
         private Transit() { } // EF Core
 
         //Relationsships
-        public Guid LocationId {get ; private set; }
+        public Guid LocationId {get ; set; }
         public Location Location  { get; set; }
 
-        public Guid DestinationId {get ; private set; }
+        public Guid DestinationId {get ; set; }
 
         public Location Destination { get; set; }
-        public Guid OriginId {get ; private set; }
+        public Guid? OriginId {get ; set; }
 
-        public Location Origin { get; set; }
+        public Location? Origin { get; set; }
 
         public Transit(TransitNumber transitNumber, PickUpCode pickUpCode, Coordinates coordinates, CompanyName companyName, DeliveryStatus deliveryStatus, Guid? id)
         {
@@ -38,5 +38,7 @@ namespace WarehouseStorage.Domain.Models
             Distributor = companyName;
             DeliveryStatus = deliveryStatus;
         }
+
+
     }
 }

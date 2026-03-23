@@ -61,7 +61,7 @@ namespace WarehouseStorage.Services.Factories
             var transitId = (Guid?)null;
             var deliveryStatus = Enum.TryParse<DeliveryStatus>(transit.DeliveryStatus, ignoreCase: true, out var parsed)
                 ? parsed
-                : DeliveryStatus.WAITING;
+                : DeliveryStatus.CREATED;
 
             return new Transit(
                 DomainFactory.CreateTransitNumber(transit.TransitNumber),
@@ -69,7 +69,15 @@ namespace WarehouseStorage.Services.Factories
                 DomainFactory.CreateCoordinate(transit.GpsLocation),
                 DomainFactory.CreateCompany(transit.Distributor),
                 deliveryStatus,
-                transitId);
+                transitId)
+            {
+                DestinationId = transit.DestinationId,
+                Location = new Location()
+                {
+                    Address = null,
+                    Stocks = new List<Stock>()
+                }
+            };
         }
 
 
@@ -84,7 +92,22 @@ namespace WarehouseStorage.Services.Factories
                 DomainFactory.CreateQuantity(stock.Quantity),
                 DomainFactory.CreatePrice(localPrice),
                 DomainFactory.CreateCurrency(localCurrency),
-                stockId);
+                stockId)
+            {
+                ProductId = stock.ProductId
+            };
+        }
+
+        public static StockDTO CreateStockDTO(Stock stock)
+        {
+            return new StockDTO
+            {
+                InHouseLocation = stock.InHouseLocation.value,
+                Quantity = stock.Quantity.value,
+                LocalPrice = stock.LocalPrice.value,
+                LocalCurrency = stock.LocalCurrency.value,
+                ProductId = stock.ProductId
+            };
         }
 
         public static Warehouse CreateWarehouse(WarehouseDTO warehouse)

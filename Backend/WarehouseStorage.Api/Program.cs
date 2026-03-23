@@ -72,15 +72,12 @@ using (var scope = app.Services.CreateScope())
     await roleSeeder.SeedRolesAsync();
 }
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseRouting();
+if (!app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseHttpsRedirection();
 }
-
-app.UseRouting();
-
-app.UseHttpsRedirection();
 
 app.Use(async (context, next) =>
 {

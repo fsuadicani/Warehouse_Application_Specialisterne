@@ -14,6 +14,12 @@ namespace WarehouseStorage.DTOs.DataTransferObjects
         required public string Distributor { get; set;}
         required public string DeliveryStatus { get; set;}
 
+        // required public Guid LocationId {get ; set; }
+
+        required public Guid DestinationId {get ; set; }
+
+        public Guid? OriginId {get ; set; }
+
         required public ICollection<StockDTO> Stocks {get; set;}
     }
 }

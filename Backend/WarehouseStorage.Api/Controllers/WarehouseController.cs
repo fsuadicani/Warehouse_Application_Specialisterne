@@ -7,10 +7,10 @@ namespace WarehouseStorage.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class WarehouseController(IWarehouseRepository warehouseRepository) : ControllerBase
+    public class WarehouseController(IWarehouse warehouseRepository) : ControllerBase
     {
         private const int MaxTake = 1000;
-        private readonly IWarehouseRepository _warehouseRepository = warehouseRepository;
+        private readonly IWarehouse _warehouseRepository = warehouseRepository;
 
         [HttpPost("add")]
         public async Task<IActionResult> Add([FromBody] WarehouseDTO warehouse)

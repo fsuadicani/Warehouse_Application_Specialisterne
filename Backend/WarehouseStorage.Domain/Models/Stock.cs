@@ -19,6 +19,8 @@ namespace WarehouseStorage.Domain.Models
         public Guid LocationId  { get; set;}
         public Location Location { get; set; }
 
+        public Guid ProductId  { get; set;}
+
         public Product Product { get; set; }
 
         public Stock(StockLocation location, Quantity quantity, Price price, Currency currency, Guid? id)
@@ -28,6 +30,11 @@ namespace WarehouseStorage.Domain.Models
             Quantity = quantity;
             LocalPrice = price;
             LocalCurrency = currency;
+        }
+
+        public void ChangeQuantityBy(int delta)
+        {
+            Quantity.ChangeQuantity(delta);
         }
     }
 }

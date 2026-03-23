@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 
@@ -37,7 +38,12 @@ namespace WarehouseStorage.Infrastructure
             if(string.IsNullOrEmpty(database))
                 throw new InvalidOperationException($"Required database configuration value: {nameof(database)} not set."); 
 
-            return $"Host={host};Port={port};Database={database};Username={username};Password={password}"; 
+            string connectionString = $"Host={host};Port={port};Database={database};Username={username};Password={password};";
+
+            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                connectionString += "Include Error Detail=true;";
+
+            return connectionString; 
         }
     }
 }

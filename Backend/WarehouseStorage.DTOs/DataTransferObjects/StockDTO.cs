@@ -12,5 +12,6 @@ namespace WarehouseStorage.DTOs.DataTransferObjects
         required public int Quantity { get; set;}
         required public decimal LocalPrice { get; set;}
         required public string LocalCurrency { get; set;}
+        required public Guid ProductId { get; set;}
     }
 }

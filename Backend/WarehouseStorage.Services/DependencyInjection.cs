@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WarehouseStorage.Infrastructure;
+using WarehouseStorage.Services.Interfaces;
 using WarehouseStorage.Services.Repositories;
 using WarehouseStorage.Services.Repositories.Interfaces;
 using WarehouseStorage.Services.Security;
@@ -22,6 +23,9 @@ public static class DependencyInjection
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+        services.AddScoped<ITransitRepository, TransitRepository>();
+        services.AddScoped<IStockRepository, StockRepository>();
+        services.AddScoped<ITransitService, TransitService>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IWarehouseRepository, WarehouseRepository>();
 
